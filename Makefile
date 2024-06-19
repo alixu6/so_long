@@ -1,9 +1,20 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: axu <axu@student.42luxembourg.lu>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/06/19 13:24:10 by axu               #+#    #+#              #
+#    Updated: 2024/06/19 14:00:13 by axu              ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 NAME = so_long
 
 SOURCES = map_utils.c
 
-OBJECTS = $(SOURCES:.C=.O)
+OBJECTS = $(SOURCES:.c=.o)
 
 CC = cc
 
@@ -17,10 +28,17 @@ LIBFT_PATH = ./ft_printf
 
 LIBFT = $(LIBFT_PATH)/libftprintf.a
 
+INCLUDES = -I$(MINILIBX_PATH)
+
+MINILIBX_FLAGS = -lm -lX11 -lXext
+
 all: $(NAME)
 
-$(NAME): $(OBJECTS) $(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) $(LIBFT) $(MINILIBX)
+$(NAME): $(OBJECTS) $(LIBFT) $(MINILIBX)
+	$(CC) $(CFLAGS) -o $@ $(OBJECTS) $(LIBFT) $(MINILIBX) $(MINILIBX_FLAGS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(LIBFT):
 	@$(MAKE) -C $(LIBFT_PATH)
@@ -35,7 +53,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
-	$(NAME) -C $(LIBFT_PATH) fclean
-	$(NAME) -C $(MINILIBX_PATH) fclean
+	@$(NAME) -C $(LIBFT_PATH) fclean
+	@$(NAME) -C $(MINILIBX_PATH) fclean
 
 re: fclean all
