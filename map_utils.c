@@ -15,9 +15,10 @@ int	main(void)
 		free(wdw_ptr);
 		return (1);
 	}
-	mlx_destroy_window(mlx_ptr, wdw_ptr);
+	mlx_loop(mlx_ptr);	
+	/*mlx_destroy_window(mlx_ptr, wdw_ptr);
 	mlx_destroy_display(mlx_ptr);
-	free(mlx_ptr);
+	free(mlx_ptr);*/
 	return (0);
 }
 
