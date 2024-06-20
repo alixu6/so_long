@@ -1,25 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: axu <axu@student.42luxembourg.lu>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/20 09:50:42 by axu               #+#    #+#             */
+/*   Updated: 2024/06/20 13:05:19 by axu              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+/*#include "so_long.h"*/
+#include <stdlib.h>
 
-#include "so_long.h"
-
-int	main(void)
+typedef struct  s_map
 {
-	void	*mlx_ptr;
-	void	*wdw_ptr;
+        int     x;
+        int     y;
+        struct  s_map *next;
+}       t_map;
 
-	mlx_ptr = mlx_init();
-	if (mlx_ptr == NULL)
-		return (1);
-	wdw_ptr = mlx_new_window(mlx_ptr, 600, 300, "START");
-	if (wdw_ptr == NULL)
-	{
-		free(wdw_ptr);
-		return (1);
-	}
-	mlx_loop(mlx_ptr);	
-	/*mlx_destroy_window(mlx_ptr, wdw_ptr);
-	mlx_destroy_display(mlx_ptr);
-	free(mlx_ptr);*/
-	return (0);
+typedef struct  s_check_map
+{
+        char    **map;
+        t_map   size;
+        t_map   player;
+        int     *nb;
+        int     goal;
+        int     *valid;
+}       t_check_map;
+
+
+void	ft_push_map(t_map **map, int x, int y)
+{
+	t_map	*new_point;
+
+	new_point = (t_map *)malloc(sizeof(t_map));
+	new_point->x = x;
+	new_point->y = y;
+	new_point->next = *map;
+	*map = new_point;
+}
+
+int	ft_pop_map(t_map **map, int *x, int *y)
+{
+	t_map	*temp;
+	
+	if (*map == NULL)
+		return (0);
+	temp = *map;
+	*x = temp->x;
+	*y = temp->y;
+	*map = (*map)->next;
+	free(temp);
+	return (1);
 }
 
 

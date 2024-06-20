@@ -1,45 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axu <axu@student.42luxembourg.lu>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/20 09:51:18 by axu               #+#    #+#             */
-/*   Updated: 2024/06/20 10:38:18 by axu              ###   ########.fr       */
+/*   Created: 2024/06/20 10:04:42 by axu               #+#    #+#             */
+/*   Updated: 2024/06/20 10:04:48 by axu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "so_long.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include "minilibx-linux/mlx.h"
-# include "ft_printf/libftprintf.h"
-
-typedef struct	s_data
+int	main(void)
 {
 	void	*mlx_ptr;
 	void	*wdw_ptr;
-	void	*textures[5];
-	/*t_map	*map;*/
-}	t_data;
 
-typedef struct	s_map
-{
-	int	x;
-	int	y;
-	struct	s_map *next;
-}	t_map;
+	mlx_ptr = mlx_init();
+	if (mlx_ptr == NULL)
+		return (1);
+	wdw_ptr = mlx_new_window(mlx_ptr, 600, 300, "START");
+	if (wdw_ptr == NULL)
+	{
+		free(wdw_ptr);
+		return (1);
+	}
+	mlx_loop(mlx_ptr);	
+	/*mlx_destroy_window(mlx_ptr, wdw_ptr);
+	mlx_destroy_display(mlx_ptr);
+	free(mlx_ptr);*/
+	return (0);
+}
 
-typedef struct	s_check_map
-{
-	char	**map;
-	t_map	size;
-	t_map	player;
-	int	*nb;
-	int	goal;
-	int	*valid;
-}	t_check_map;
 
-#endif

@@ -6,7 +6,7 @@
 /*   By: axu <axu@student.42luxembourg.lu>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 17:27:53 by axu               #+#    #+#             */
-/*   Updated: 2024/06/19 18:01:06 by axu              ###   ########.fr       */
+/*   Updated: 2024/06/20 10:06:17 by axu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -43,7 +43,9 @@ char	**ft_make_map(char **area, t_map size)
 
 void	ft_check_chars(char **map, t_map size, t_map player, char to_check)
 {
-	
+	if (player.x > 0 && map[player.y - 1][player.x] == 'C')
+
+			
 
 void	ft_check_map(char **map, t_map size, t_point player)
 {
