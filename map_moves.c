@@ -6,12 +6,22 @@
 /*   By: axu <axu@student.42luxembourg.lu>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 10:05:05 by axu               #+#    #+#             */
-/*   Updated: 2024/06/21 14:05:26 by axu              ###   ########.fr       */
+/*   Updated: 2024/06/21 14:52:21 by axu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
 
-char	**ft_make_map(char **area, t_map size)
+void	ft_init_struct(t_map *params, char **area, t_point size, t_point player)
+{
+	params->map = area;
+	params->size = size;
+	params->player = player;
+	params->nb = 0;
+	params->goal = 0;
+	params->valid = 0;
+}
+
+char	**ft_make_map(char **area, t_point size)
 {
 	char	**map;
 	int	i;
@@ -38,100 +48,89 @@ char	**ft_make_map(char **area, t_map size)
 	return (map);
 }
 
-/*int	ft_valid_move(char **map, t_map size, int x, int y)
-{
-	char	c;
-
-	c = map[y][x];
-	if (x < 0 || x >= size.x || y < 0 || y >= size.y)
-		return (0);
-	if (c == '0' || c == 'C' || c == 'E')
-		return (1);
-	else
-		return (0);
-}*/
-
-void	ft_flood(char **map, t_map size, t_map player, int *nb, int goal, int *valid)
+void	ft_flood(t_map *params, t_point pos)
 {
 	char	original;
-	if (player.x < 0 || player.x >= size.x)
+	if (pos.x < 0 || pos.x >= params->size.x)
 		return ;
-	if (player.y < 0 || player.y >= size.y)
+	if (pos.y < 0 || pos.y >= params->size.y)
 		return ;
-	if (map[player.y][player.x] == '1' || map[player.y][player.x] == 'X')
+	if (params->map[pos.y][pos.x] == '1' || params->map[pos.y][pos.x] == 'X')
 		return ;
-	original = map[player.y][player.x];
+	original = params->map[pos.y][pos.x];
 	if (original == 'C')
-		(*nb)++;
+		params->nb++;
 	else if (original == 'E')
 	{
-		if (*nb == goal)
-			*valid = 1;
+		if (params->nb == params->goal)
+			params->valid = 1;
 		return ;
 	}
-	map[player.y][player.x] = 'X';
-	ft_flood(map, size, (t_map){player.x + 1, player.y, NULL}, nb, goal, valid);
-	ft_flood(map, size, (t_map){player.x - 1, player.y, NULL}, nb, goal, valid);
-	ft_flood(map, size, (t_map){player.x, player.y + 1, NULL}, nb, goal, valid);
-	ft_flood(map, size, (t_map){player.x, player.y - 1, NULL}, nb, goal, valid);
-	map[player.y][player.x] = 'x';
+	params->map[pos.y][pos.x] = 'X';
+	ft_flood(params, (t_point){pos.x + 1, pos.y});
+	ft_flood(params, (t_point){pos.x - 1, pos.y});
+	ft_flood(params, (t_point){pos.x, pos.y + 1});
+	ft_flood(params, (t_point){pos.x, pos.y - 1});
+	params->map[pos.y][pos.x] = 'x';
 }
 
-int	ft_check_path(char **map, t_map size, t_map player)
+int	ft_check_path(t_map *params)
 {
-	int	nb;
-	int	goal;
-	int	valid;
 	int	i;
 	int	j;
 
 	i = 0;
-	nb = 0;
-	goal = 0;
-	valid = 0;
-	while (i < size.y)
+	params->goal = 0;
+	while (i < params->size.y)
 	{
 		j = 0;
-		while (j < size.x)
+		while (j < params->size.x)
 		{
-			if (map[i][j] == 'C')
-				goal++;
+			if (params->map[i][j] == 'C')
+				params->goal++;
 			j++;
 		}
 		i++;
 	}
-	if (goal < 1)
+	if (params->goal < 1)
 		return (0);
-	ft_flood(map, size, player, &nb, goal, &valid);
-	return (valid ? 1 : 0);
+	ft_flood(params, params->player);
+	return (params->valid);
 }
 
-int	ft_check_map(char **map, t_map size)
+int	ft_check_map(t_map *params)
 {
-	if (!ft_count_player(map, size))
+	if (!ft_count_player(params->map, params->size))
 	{
 		printf("wrong number of players\n");
 		return (0);
 	}
-	if (!ft_count_exit(map, size))
+	if (!ft_count_exit(params->map, params->size))
 	{
 		printf("wrong number of exits\n");
 		return (0);
 	}
-	if (!ft_rectangular(map, size))
+	if (!ft_rectangular(params->map, params->size))
 	{
 		printf("map is not rectangular\n");
 		return (0);
 	}
-	if (!ft_row_walls(map, size) || !ft_column_walls(map, size))
+	if (!ft_row_walls(params->map, params->size))
 	{
 		printf("map not surrounding by walls\n");
+		return (0);
+	}
+	if (!ft_column_walls(params->map, params->size))
+	{
+		printf("map not surrouding by walls\n");
 		return (0);
 	}
 	return (1);
 }
 
 int main() {
+
+	t_map	params;
 
     char *area[] = {
         "1111111",
@@ -140,18 +139,19 @@ int main() {
         "1111111"
     };
 
-    t_map size = {7, 4, NULL};
-    t_map player = {5, 1, NULL};
+    t_point size = {7, 4};
+    t_point player = {5, 1};
 
     char **map = ft_make_map(area, size);
+    ft_init_struct(&params, map, size, player);
 	for (int i = 0; i < size.y; ++i)
 		printf("%s\n", area[i]);
 	printf("\n");
 
 	
-	if (ft_check_map(map, size))
+	if (ft_check_map(&params))
 	{
-		int is_valid_path = ft_check_path(map, size, player);
+		int is_valid_path = ft_check_path(&params);
 		if (is_valid_path) {
         		printf("Path is valid and all coins collected!\n");
     		} else {

@@ -6,12 +6,12 @@
 /*   By: axu <axu@student.42luxembourg.lu>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 09:17:07 by axu               #+#    #+#             */
-/*   Updated: 2024/06/21 11:27:01 by axu              ###   ########.fr       */
+/*   Updated: 2024/06/21 14:19:28 by axu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
 
-int	ft_count_player(char **map, t_map size)
+int	ft_count_player(char **map, t_point size)
 {
 	int	count_p;
 	int	i;
@@ -36,7 +36,7 @@ int	ft_count_player(char **map, t_map size)
 		return (0);
 }
 
-int	ft_count_exit(char **map, t_map size)
+int	ft_count_exit(char **map, t_point size)
 {
 	int	count_e;
 	int	i;
@@ -61,7 +61,7 @@ int	ft_count_exit(char **map, t_map size)
 		return (0);
 }
 
-int	ft_rectangular(char **map, t_map size)
+int	ft_rectangular(char **map, t_point size)
 {
 	int	i;
 	int	j;
@@ -83,7 +83,7 @@ int	ft_rectangular(char **map, t_map size)
 	return (1);
 }
 
-int	ft_row_walls(char **map, t_map size)
+int	ft_row_walls(char **map, t_point size)
 {
 	int	i;
 	int	j;
@@ -107,7 +107,7 @@ int	ft_row_walls(char **map, t_map size)
 	return (1);
 }
 
-int	ft_column_walls(char **map, t_map size)
+int	ft_column_walls(char **map, t_point size)
 {
 	int	i;
 	int	j;
