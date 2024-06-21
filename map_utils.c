@@ -6,31 +6,13 @@
 /*   By: axu <axu@student.42luxembourg.lu>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 09:50:42 by axu               #+#    #+#             */
-/*   Updated: 2024/06/20 13:05:19 by axu              ###   ########.fr       */
+/*   Updated: 2024/06/21 19:29:16 by axu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-/*#include "so_long.h"*/
+#include "so_long.h"
 #include <stdlib.h>
 
-typedef struct  s_map
-{
-        int     x;
-        int     y;
-        struct  s_map *next;
-}       t_map;
-
-typedef struct  s_check_map
-{
-        char    **map;
-        t_map   size;
-        t_map   player;
-        int     *nb;
-        int     goal;
-        int     *valid;
-}       t_check_map;
-
-
-void	ft_push_map(t_map **map, int x, int y)
+/*void	ft_push_map(t_map **map, int x, int y)
 {
 	t_map	*new_point;
 
@@ -53,6 +35,39 @@ int	ft_pop_map(t_map **map, int *x, int *y)
 	*map = (*map)->next;
 	free(temp);
 	return (1);
-}
+}*/
 
+/*t_point	ft_get_map_size(const char *map_file)
+{
+	int fd = open(filename, O_RDONLY);
+    if (fd < 0) {
+        perror("Error opening file");
+        return (t_point){0, 0};
+    }
 
+    char *line;
+    t_point size = {0, 0};
+    int rows = 0;
+    int cols = 0;
+
+    while ((line = get_next_line(fd)) != NULL) {
+        if (cols == 0)
+            cols = ft_strlen(line) - 1; // Assuming the line ends with '\n'
+        rows++;
+        free(line);
+    }
+    close(fd);
+
+    size.y = rows;
+    ft_printf("size.y is %d\n", rows);
+    size.x = cols;
+    ft_printf("size.y is %d\n", cols);
+
+    return size;
+}*/
+
+t_point	ft_get_map_size(t_map params)
+{
+	int	i;
+	int	j;
+	while (i

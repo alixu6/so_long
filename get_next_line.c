@@ -9,7 +9,7 @@
 /*   Updated: 2024/03/26 15:01:33 by axu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+#include "so_long.h"
 
 static char	*ft_read_fd(int fd, char *buffer, char *stock);
 static char	*ft_get_line(char *line);
