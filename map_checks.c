@@ -5,155 +5,128 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: axu <axu@student.42luxembourg.lu>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/20 10:05:05 by axu               #+#    #+#             */
-/*   Updated: 2024/06/20 13:50:56 by axu              ###   ########.fr       */
+/*   Created: 2024/06/21 09:17:07 by axu               #+#    #+#             */
+/*   Updated: 2024/06/21 11:27:01 by axu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-/*#include "so_long.h"*/
+#include "so_long.h"
 
-#include <stdlib.h>
-
-typedef struct  s_map
+int	ft_count_player(char **map, t_map size)
 {
-        int     x;
-        int     y;
-        struct  s_map *next;
-}       t_map;
-
-typedef struct  s_check_map
-{
-        char    **map;
-        t_map   size;
-        t_map   player;
-        int     *nb;
-        int     goal;
-        int     *valid;
-}       t_check_map;
-
-
-char	**ft_make_map(char **area, t_map size)
-{
-	char	**map;
+	int	count_p;
 	int	i;
 	int	j;
 
-	map = (char **)malloc(sizeof(char *) * size.y);
-	if (!map)
-		return (NULL);
+	count_p = 0;
 	i = 0;
 	while (i < size.y)
 	{
-		map[i] = (char *)malloc(sizeof(char) * (size.x + 1));
-		if (!map[i])
-			return (NULL);
 		j = 0;
 		while (j < size.x)
 		{
-			map[i][j] = area[i][j];
+			if (map[i][j] == 'P')
+				count_p++;
 			j++;
 		}
-		map[i][size.x] = '\0';
 		i++;
 	}
-	return (map);
-}
-
-int	ft_valid_move(char **map, t_map size, int x, int y)
-{
-	char	c;
-
-	c = map[y][x];
-	if (x < 0 || x >= size.x || y < 0 || y >= size.y)
-		return (0);
-	if (c == '0' || c == 'C' || c == 'E')
+	if (count_p == 1)
 		return (1);
 	else
 		return (0);
 }
 
-void	ft_flood(char **map, t_map size, t_map player, int *nb, int goal, int *valid)
+int	ft_count_exit(char **map, t_map size)
 {
-	if (player.x < 0 || player.x >= size.x)
-		return ;
-	if (player.y < 0 || player.y >= size.y)
-		return ;
-	if (map[player.y][player.x] == '1' || map[player.y][player.x] == 'X')
-		return ;
-	if (map[player.y][player.x] == 'C')
-		(*nb)++;
-	else if (map[player.y][player.x] == 'E')
-	{
-		if (*nb == goal)
-			*valid = 1;
-		return ;
-	}
-	map[player.y][player.x] = 'X';
-	ft_flood(map, size, (t_map){player.x + 1, player.y, NULL}, nb, goal, valid);
-	ft_flood(map, size, (t_map){player.x - 1, player.y, NULL}, nb, goal, valid);
-	ft_flood(map, size, (t_map){player.x, player.y + 1, NULL}, nb, goal, valid);
-	ft_flood(map, size, (t_map){player.x, player.y - 1, NULL}, nb, goal, valid);
-}
-
-#include <stdio.h>
-
-int	ft_check_map(char **map, t_map size, t_map player)
-{
-	int	nb;
-	int	goal;
-	int	valid;
+	int	count_e;
 	int	i;
 	int	j;
 
-	nb = 0;
-	goal = 0;
-	valid = 0;
+	count_e = 0;
 	i = 0;
 	while (i < size.y)
 	{
 		j = 0;
 		while (j < size.x)
 		{
-			if (map[i][j] == 'C')
-				goal++;
+			if (map[i][j] == 'E')
+				count_e++;
 			j++;
 		}
 		i++;
 	}
-	ft_flood(map, size, player, &nb, goal, &valid);
-	return (valid ? 1 : 0);
+	if (count_e == 1)
+		return (1);
+	else
+		return (0);
 }
 
-int main() {
-    char *area[] = {
-        "P00C",
-        "0C11",
-        "000E",
-        "C111"
-    };
+int	ft_rectangular(char **map, t_map size)
+{
+	int	i;
+	int	j;
+	int	row_length;
 
-    t_map size = {4, 4, NULL};
-    t_map player = {0, 0, NULL};
+	if (size.y <= 0)
+		return (0);
+	i = 0;
+	row_length = size.x;
+	while (i < size.y)
+	{
+		j = 0;
+		while (map[i][j] != '\0')
+			j++;
+		if (j != row_length)
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
-    char **map = ft_make_map(area, size);
-	for (int i = 0; i < size.y; ++i)
-		printf("%s\n", area[i]);
-	printf("\n");
+int	ft_row_walls(char **map, t_map size)
+{
+	int	i;
+	int	j;
 
+	i = 0;
+	j = 0;
+	while (j < size.x)
+	{
+		if (map[i][j] != '1')
+			return (0);
+		j++;
+	}
+	i = size.y - 1;
+	j = 0;
+	while (j < size.x)
+	{
+		if (map[i][j] != '1')
+			return (0);
+		j++;
+	}
+	return (1);
+}
 
-    int is_valid_path = ft_check_map(map, size, player);
-    if (is_valid_path) {
-        printf("Path is valid and all coins collected!\n");
-    } else {
-        printf("Path is invalid or not all coins collected.\n");
-    }
+int	ft_column_walls(char **map, t_map size)
+{
+	int	i;
+	int	j;
 
-    // Free allocated memory
-    int i = 0;
-    while (i < size.y) {
-        free(map[i]);
-        i++;
-    }
-    free(map);
-
-    return 0;
+	i = 0;
+	j = 0;
+	while (i < size.y)
+	{
+		if (map[i][j] != '1')
+			return (0);
+		i++;
+	}
+	i = 0;
+	j = size.x - 1;
+	while (i < size.y)
+	{
+		if (map[i][j] != '1')
+			return (0);
+		i++;
+	}
+	return (1);
 }

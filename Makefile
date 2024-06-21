@@ -6,13 +6,13 @@
 #    By: axu <axu@student.42luxembourg.lu>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 13:24:10 by axu               #+#    #+#              #
-#    Updated: 2024/06/19 14:00:13 by axu              ###   ########.fr        #
+#    Updated: 2024/06/21 09:58:34 by axu              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-SOURCES = map_utils.c
+SOURCES = map_checks.c map_moves.c 
 
 OBJECTS = $(SOURCES:.c=.o)
 
