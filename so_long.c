@@ -153,6 +153,7 @@ int main(int argc, char **argv) {
         }
     } else {
         printf("Error\n");
+	exit(EXIT_FAILURE);
     }
 
     game.mlx_ptr = mlx_init();
