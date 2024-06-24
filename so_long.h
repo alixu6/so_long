@@ -18,18 +18,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <stdio.h>
+# include <string.h>
+# include <X11/X.h>
+/*# include <X11/keysim.h>*/
 # include "minilibx-linux/mlx.h"
 # include "ft_printf/libftprintf.h"
-
-# include <stdio.h>
-
-typedef struct	s_data
-{
-	void	*mlx_ptr;
-	void	*wdw_ptr;
-	void	*textures[5];
-	/*t_map	*map;*/
-}	t_data;
 
 typedef struct	s_point
 {
@@ -47,7 +41,21 @@ typedef struct	s_map
 	int	valid;
 }	t_map;
 
-t_point	ft_get_map_size(const char *map_file);
+typedef struct	s_game
+{
+	void	*mlx_ptr;
+	void	*wdw_ptr;
+	char	**map;
+	int	map_cols;
+	int	map_rows;
+	void	*img_wall;
+	void	*img_empty;
+	void	*img_collectible;
+	int	img_width;
+	int	img_height;
+}	t_game;
+
+/*t_point	ft_get_map_size(const char *map_file);*/
 
 int	ft_count_player(char **map, t_point size);
 int	ft_count_exit(char **map, t_point size);
@@ -59,11 +67,18 @@ char	*get_next_line(int fd);
 
 char	**ft_read_map(const char *filename, t_point *size);
 
-char	**ft_make_map(char **area, t_point size);
+t_point	ft_find_player_pos(char **map, t_point size);
+
+/*char	**ft_make_map(char **area, t_point size);*/
 void	ft_flood(t_map *params, t_point pos);
 int	ft_check_path(t_map *params);
 int	ft_check_map(t_map *params);
 
-void	ft_init_struct(t_map *params, char **area, t_point size, t_point player);
+void	ft_init_struct(t_map *params, char **area, t_point size);
+
+int     on_destroy(t_game *game);
+int on_keypress(int keysym, t_game *game);
+void render_map(t_game *game);
+
 
 #endif

@@ -30,7 +30,6 @@ int	ft_count_player(char **map, t_point size)
 		}
 		i++;
 	}
-	ft_printf("size.y is %d i is %d count_p is %d size.x is %d\n", size.y, i, count_p, size.x);
 	if (count_p == 1)
 		return (1);
 	else
@@ -78,11 +77,7 @@ int	ft_rectangular(char **map, t_point size)
 		while (map[i][j] != '\0')
 			j++;
 		if (j != row_length)
-		{
-			ft_printf("column = %d\n", j);
-			ft_printf("row_length is %d\n", row_length);
 			return (0);
-		}
 		i++;
 	}
 	return (1);
@@ -95,15 +90,10 @@ int	ft_row_walls(char **map, t_point size)
 
 	i = 0;
 	j = 0;
-	ft_printf("size.x is %d\n", size.x);
 	while (j < size.x - 1)
 	{
 		if (map[i][j] != '1')
-		{
-			ft_printf("size.x is %d\n", size.x);
-			ft_printf("First row not surrounding by walls at column %d\n", j);
 			return (0);
-		}
 		j++;
 	}
 	i = size.y - 1;
@@ -111,10 +101,7 @@ int	ft_row_walls(char **map, t_point size)
 	while (j < size.x - 1)
 	{
 		if (map[i][j] != '1')
-		{
-			ft_printf("Last row not surrounding by walls at column %d\n", j);
 			return (0);
-		}
 		j++;
 	}
 	return (1);
@@ -127,31 +114,19 @@ int	ft_column_walls(char **map, t_point size)
 
 	i = 0;
 	j = 0;
-	ft_printf("size.y is %d\n", size.y);
 	while (i < size.y)
 	{
-		ft_printf("size.y is %d\n", size.y);
 		if (map[i][j] != '1')
-		{
-			ft_printf("First column not surrounding by walls at row %d\n", i);
 			return (0);
-		}
 		i++;
 	}
 	i = 0;
 	j = size.x - 2;
-	ft_printf("Checking second-to-last column: index %d\n", j);
 	while (i < size.y)
 	{
-		ft_printf("Checking second-to-last column: row %d, value %c\n", i, map[i][j]);
 		if (map[i][j] != '1')
-		{
-			ft_printf("Second-to-last column not surrounding by walls at row %d\n", i);
 			return (0);
-		}
 		i++;
-		ft_printf("Incremented i to: %d\n", i);
 	}
-	ft_printf("Exited loop with i: %d\n", i);
 	return (1);
 }

@@ -66,8 +66,29 @@ int	ft_pop_map(t_map **map, int *x, int *y)
     return size;
 }*/
 
-t_point	ft_get_map_size(t_map params)
+t_point	ft_find_player_pos(char **map, t_point size)
 {
-	int	i;
-	int	j;
-	while (i
+	t_point	player_pos;
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < size.y)
+	{
+		x = 0;
+		while (x < size.x)
+		{
+			if (map[y][x] == 'P')
+			{
+				player_pos.x = x;
+				player_pos.y = y;
+				return (player_pos);
+			}
+			x++;
+		}
+		y++;
+	}
+	player_pos.x = -1;
+	player_pos.y = -1;
+	return (player_pos);
+}

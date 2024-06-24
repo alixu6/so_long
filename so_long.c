@@ -11,11 +11,18 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
-void	ft_init_struct(t_map *params, char **area, t_point size, t_point player)
+void	ft_init_struct(t_map *params, char **area, t_point size)
 {
+	t_point player_pos;
+
 	params->map = area;
 	params->size = size;
-	params->player = player;
+	ft_printf("params sizre is %d %d\n", params->size.y, params->size.x);
+	player_pos = ft_find_player_pos(area, size);
+        if (player_pos.x == -1 && player_pos.y == -1)
+                return ;
+	params->player = player_pos;
+	ft_printf("player pos is %d %d\n", params->player.y, params->player.x);
 	params->nb = 0;
 	params->goal = 0;
 	params->valid = 0;
@@ -75,21 +82,15 @@ void	ft_init_struct(t_map *params, char **area, t_point size, t_point player)
     return 0;
 }*/
 
-int main() {
+/*int main() {
 
         t_map   params;
 
- /*   char *area[] = {
-        "1111111",
-        "1C000P1",
-        "100E01",
-        "1111111"
-    };*/
   t_point size;
-    t_point player = {9, 7};
 
     char **map = ft_read_map("map.ber", &size);
-    ft_init_struct(&params, map, size, player);
+    ft_printf("initializing\n");
+    ft_init_struct(&params, map, size);
         for (int i = 0; i < size.y; ++i)
                 printf("%s\n", map[i]);
         printf("\n");
@@ -117,5 +118,68 @@ int main() {
     free(map);
 
     return 0;
-}
+}*/
 
+int main(int argc, char **argv) {
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s <map_file>\n", argv[0]);
+        return (1);
+    }
+
+    t_game game;
+    t_point map_size;
+    t_map	params;
+
+    game.map = ft_read_map(argv[1], &map_size);
+    if (!game.map) {
+        fprintf(stderr, "Error reading map\n");
+        return (1);
+    }
+
+    game.map_rows = map_size.y;
+    game.map_cols = map_size.x;
+
+    ft_init_struct(&params, game.map, map_size);
+    for (int i = 0; i < map_size.y; ++i)
+        printf("%s\n", game.map[i]);
+    printf("\n");
+
+    if (ft_check_map(&params)) {
+        int is_valid_path = ft_check_path(&params);
+        if (is_valid_path) {
+            printf("Path is valid and all coins collected!\n");
+        } else {
+            printf("Path is invalid or not all coins collected.\n");
+        }
+    } else {
+        printf("Error\n");
+    }
+
+    game.mlx_ptr = mlx_init();
+    if (!game.mlx_ptr)
+        return (1);
+    game.wdw_ptr = mlx_new_window(game.mlx_ptr, 1000, 800, "GAME");
+    if (!game.wdw_ptr)
+        return (free(game.mlx_ptr), 1);
+
+    game.img_collectible = mlx_xpm_file_to_image(game.mlx_ptr, "star.xpm", &game.img_width, &game.img_height);
+    game.img_wall = mlx_xpm_file_to_image(game.mlx_ptr, "tileset.xpm", &game.img_width, &game.img_height);
+    game.img_empty = mlx_xpm_file_to_image(game.mlx_ptr, "Cloud.xpm", &game.img_width, &game.img_height);
+    if (!game.img_wall || !game.img_empty || !game.img_collectible) {
+        fprintf(stderr, "Error loading images\n");
+        return (1);
+    }
+
+    render_map(&game);
+
+    // Register key release hook
+    mlx_hook(game.wdw_ptr, KeyRelease, KeyReleaseMask, &on_keypress, &game);
+
+    // Register destroy hook
+    mlx_hook(game.wdw_ptr, DestroyNotify, StructureNotifyMask, &on_destroy, &game);
+
+    // Loop over the MLX pointer
+    mlx_loop(game.mlx_ptr);
+
+    return 0;
+}

@@ -12,7 +12,7 @@
 
 NAME = so_long
 
-SOURCES = so_long.c map_checks.c map_moves.c map_utils.c get_next_line.c 
+SOURCES = map_moves.c map_checks.c get_next_line.c mlx_utils.c so_long.c map_utils.c
 
 OBJECTS = $(SOURCES:.c=.o)
 

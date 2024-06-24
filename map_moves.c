@@ -38,45 +38,6 @@ char **ft_read_map(const char *filename, t_point *size) {
 return (map);
 }
 
-/*char **ft_read_map(const char *filename, t_point *size) {
-    int fd = open(filename, O_RDONLY);
-    if (fd < 0) {
-        perror("Error opening file");
-        return NULL;
-    }
-
-    char *line;
-    char **map = NULL;
-    int rows = 0;
-    int max_cols = 0; // Track maximum line length excluding newline
-
-    while ((line = get_next_line(fd)) != NULL) {
-        int cols = 0;
-
-        // Calculate actual length of the line (excluding newline)
-        while (line[cols] != '\0' && line[cols] != '\n') {
-            cols++;
-        }
-
-        // Update max_cols if necessary
-        if (cols > max_cols) {
-            max_cols = cols;
-        }
-
-        // Store the line in the map array
-        map = realloc(map, sizeof(char *) * (rows + 1));
-        map[rows] = line;
-        rows++;
-    }
-    close(fd);
-
-    // Assign size excluding newlines and null terminators
-    size->y = rows;
-    size->x = max_cols;
-
-    return map;
-}*/
-
 char	**ft_make_map(char **area, t_point size)
 {
 	char	**map;
@@ -111,35 +72,36 @@ void	ft_flood(t_map *params, t_point pos)
 		return ;
 	if (pos.y < 0 || pos.y >= params->size.y)
 		return ;
-	ft_printf("entering flood\n");
-	if (params->map[pos.y][pos.x] == '1' || params->map[pos.y][pos.x] == 'X')
-		return ;
 	original = params->map[pos.y][pos.x];
+	if (original == '1' || original == 'X')
+		return ;
 	if (original == 'C')
+	{
 		params->nb++;
+		ft_printf("Incremented params->nb at (%d, %d), now %d\n", pos.x, pos.y, params->nb);
+	}
 	else if (original == 'E')
 	{
+		ft_printf("Reached exit ('E') at (%d, %d)\n", pos.x, pos.y);
 		if (params->nb == params->goal)
 			params->valid = 1;
 		return ;
 	}
 	params->map[pos.y][pos.x] = 'X';
-	ft_flood(params, (t_point){pos.x + 1, pos.y});
 	ft_flood(params, (t_point){pos.x - 1, pos.y});
-	ft_flood(params, (t_point){pos.x, pos.y + 1});
+	ft_flood(params, (t_point){pos.x + 1, pos.y});
 	ft_flood(params, (t_point){pos.x, pos.y - 1});
-	params->map[pos.y][pos.x] = original;
+	ft_flood(params, (t_point){pos.x, pos.y + 1});
+	/*params->map[pos.y][pos.x] = 'x';*/
 }
 
 int	ft_check_path(t_map *params)
 {
 	int	i;
 	int	j;
-
 	i = 0;
 	while (i < params->size.y)
 	{
-		ft_printf("entering the loop in check_path\n");
 		j = 0;
 		while (j < params->size.x)
 		{
@@ -154,6 +116,7 @@ int	ft_check_path(t_map *params)
 		return (0);
 	ft_flood(params, params->player);
 	ft_printf("params->valid is %d\n", params->valid);
+	ft_printf("params->nb is %d\n", params->nb);
 	return (params->valid);
 }
 
