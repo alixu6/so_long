@@ -6,7 +6,7 @@
 /*   By: axu <axu@student.42luxembourg.lu>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 09:50:42 by axu               #+#    #+#             */
-/*   Updated: 2024/06/21 19:29:16 by axu              ###   ########.fr       */
+/*   Updated: 2024/06/25 18:18:14 by axu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -37,34 +37,25 @@ int	ft_pop_map(t_map **map, int *x, int *y)
 	return (1);
 }*/
 
-/*t_point	ft_get_map_size(const char *map_file)
+void	ft_map_size(const char *filename, t_point *size)
 {
-	int fd = open(filename, O_RDONLY);
-    if (fd < 0) {
-        perror("Error opening file");
-        return (t_point){0, 0};
-    }
+	int	fd;
+	char	*line;
 
-    char *line;
-    t_point size = {0, 0};
-    int rows = 0;
-    int cols = 0;
-
-    while ((line = get_next_line(fd)) != NULL) {
-        if (cols == 0)
-            cols = ft_strlen(line) - 1; // Assuming the line ends with '\n'
-        rows++;
-        free(line);
-    }
-    close(fd);
-
-    size.y = rows;
-    ft_printf("size.y is %d\n", rows);
-    size.x = cols;
-    ft_printf("size.y is %d\n", cols);
-
-    return size;
-}*/
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return ;
+	size->y = 0;
+	size->x = 0;
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		if (size->x == 0)
+			size->x = ft_strlen(line);
+		size->y++;
+		free(line);
+	}
+	close(fd);
+}	
 
 t_point	ft_find_player_pos(char **map, t_point size)
 {
@@ -92,3 +83,18 @@ t_point	ft_find_player_pos(char **map, t_point size)
 	player_pos.y = -1;
 	return (player_pos);
 }
+
+void	ft_create_window(t_game	*game)
+{
+	game->w = game->render.size.x * CELL_SIZE;
+	game->h = game->render.size.y * CELL_SIZE;
+	game->win = mlx_new_window(game->mlx, game->w, game->h, "GAME");
+        if (!game->win)
+	{
+		free(game->mlx);
+		return ;
+	}
+	ft_render_map(game);
+}
+
+

@@ -6,39 +6,37 @@
 /*   By: axu <axu@student.42luxembourg.lu>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 10:05:05 by axu               #+#    #+#             */
-/*   Updated: 2024/06/21 19:28:15 by axu              ###   ########.fr       */
+/*   Updated: 2024/06/25 17:10:26 by axu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
 
-char **ft_read_map(const char *filename, t_point *size) {
-    int fd = open(filename, O_RDONLY);
-    if (fd < 0) {
-        perror("Error opening file");
-        return NULL;
-    }
-
-    char *line;
-    char **map = NULL;
-	int rows = 0;
-    int cols = 0;
-
-    while ((line = get_next_line(fd)) != NULL) {
-
-        if (cols == 0)
-            cols = ft_strlen(line); // Set the column count for the first line
-	
-        map = realloc(map, sizeof(char *) * (rows + 1));
-        map[rows] = line; // Store the line in the map array
-        rows++;
-    }
-    close(fd);
-    size->y = rows;
-    size->x = cols;
-return (map);
+char	**ft_read_map(const char *filename, t_point *size)
+{
+	int	fd;
+	char	*line;
+	char	**map = NULL;
+	int	row;
+       
+	ft_map_size(filename, size);
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return NULL;
+	map = (char **)malloc(sizeof(char *) * (size->y + 1));
+	if (!map)
+		return (NULL);
+	row = 0;
+	while ((line = get_next_line(fd)) != NULL && row < size->y)
+	{
+		map[row] = line;
+		row++;
+	}
+	map[row] = NULL;
+	close(fd);
+	return (map);
 }
 
-char	**ft_make_map(char **area, t_point size)
+/*char	**ft_make_map(char **area, t_point size)
 {
 	char	**map;
 	int	i;
@@ -63,7 +61,7 @@ char	**ft_make_map(char **area, t_point size)
 		i++;
 	}
 	return (map);
-}
+}*/
 
 void	ft_flood(t_map *params, t_point pos)
 {
@@ -78,11 +76,11 @@ void	ft_flood(t_map *params, t_point pos)
 	if (original == 'C')
 	{
 		params->nb++;
-		ft_printf("Incremented params->nb at (%d, %d), now %d\n", pos.x, pos.y, params->nb);
+		//ft_printf("Incremented params->nb at (%d, %d), now %d\n", pos.x, pos.y, params->nb);
 	}
 	else if (original == 'E')
 	{
-		ft_printf("Reached exit ('E') at (%d, %d)\n", pos.x, pos.y);
+		//ft_printf("Reached exit ('E') at (%d, %d)\n", pos.x, pos.y);
 		if (params->nb == params->goal)
 			params->valid = 1;
 		return ;
@@ -111,12 +109,12 @@ int	ft_check_path(t_map *params)
 		}
 		i++;
 	}
-	ft_printf("params->goal is %d\n", params->goal);
+	//ft_printf("params->goal is %d\n", params->goal);
 	if (params->goal < 1)
 		return (0);
 	ft_flood(params, params->player);
-	ft_printf("params->valid is %d\n", params->valid);
-	ft_printf("params->nb is %d\n", params->nb);
+	//ft_printf("params->valid is %d\n", params->valid);
+	//ft_printf("params->nb is %d\n", params->nb);
 	return (params->valid);
 }
 
@@ -145,7 +143,7 @@ int	ft_check_map(t_map *params)
 	if (!ft_column_walls(params->map, params->size))
 	{
 		printf("map not surrouding by walls 2\n");
-		return (1);
+		return (0);
 	}
 	return (1);
 }
