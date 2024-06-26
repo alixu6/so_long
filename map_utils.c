@@ -88,6 +88,10 @@ void	ft_create_window(t_game	*game)
 {
 	game->w = game->render.size.x * CELL_SIZE;
 	game->h = game->render.size.y * CELL_SIZE;
+	ft_printf("game render size x is %d\n", game->render.size.x);
+	ft_printf("game w is %d\n", game->w);
+	ft_printf("game render size y is %d\n", game->render.size.y);
+	ft_printf("game h is %d\n", game->h);
 	game->win = mlx_new_window(game->mlx, game->w, game->h, "GAME");
         if (!game->win)
 	{

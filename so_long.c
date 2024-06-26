@@ -11,24 +11,45 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
-void	ft_init_struct(t_map *params, char **area, t_point size)
+void	ft_init_struct(t_game *game, char **area, t_point size)
 {
 	t_point player_pos;
 
-	params->map = area;
-	params->size = size;
+	game->render.map = area;
+	game->render.size = size;
 	//t_printf("params size is %d %d\n", params->size.y, params->size.x);
 	player_pos = ft_find_player_pos(area, size);
         if (player_pos.x == -1 && player_pos.y == -1)
                 return ;
-	params->player = player_pos;
+	game->render.player = player_pos;
 	//ft_printf("player pos is %d %d\n", params->player.y, params->player.x);
-	params->nb = 0;
-	params->goal = 0;
-	params->valid = 0;
+	game->render.nb = 0;
+	game->render.goal = 0;
+	game->render.valid = 0;
+	game->mlx = NULL;
+	game->win = NULL;
+	game->bg = NULL;
+	game->wall = NULL;
+	game->space = NULL;
+	game->item = NULL;
+	game->player = NULL;
+	game->exit = NULL;
+	game->w = 0;
+	game->h = 0;
 }
 
+void	ft_free_map(char **map)
+{
+	int	i;
 
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+}
 
 int	main(int argc, char *argv[])
 {
@@ -45,7 +66,7 @@ int	main(int argc, char *argv[])
 		ft_printf("Error\nCannot read map\n");
 		return (0);
 	}
-	ft_init_struct(&game.render, game.render.map, game.render.size);
+	ft_init_struct(&game, game.render.map, game.render.size);
 	if (!ft_check_map(&game.render) || !ft_check_path(&game.render))
 	{
 		printf("Error\nInvalid map\n");
@@ -54,9 +75,11 @@ int	main(int argc, char *argv[])
 	game.mlx = mlx_init();
 	if (!game.mlx)
 		return (0);
+	ft_convert_to_img(&game);
 	ft_create_window(&game);
 	mlx_hook(game.win, KeyRelease, KeyReleaseMask, &on_keypress, &game);
 	mlx_hook(game.win, DestroyNotify, StructureNotifyMask, &on_destroy, &game);
 	mlx_loop(game.mlx);
+	ft_free_map(game.render.map);
 	return (0);
 }

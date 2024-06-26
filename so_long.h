@@ -24,9 +24,16 @@
 # include <stdio.h>
 # include <string.h>
 # include <X11/X.h>
-/*# include <X11/keysim.h>*/
+# include <X11/keysym.h>
 # include "minilibx-linux/mlx.h"
 # include "ft_printf/libftprintf.h"
+
+# define BG_IMG "./textures/bg.xpm"
+# define WALL_IMG "./textures/wall.xpm"
+# define SPACE_IMG "./textures/space.xpm"
+# define ITEM_IMG "./textures/item.xpm"
+# define PLAYER_IMG "./textures/player.xpm"
+# define EXIT_IMG "./textures/exit.xpm"
 
 typedef struct	s_point
 {
@@ -49,6 +56,7 @@ typedef struct	s_game
 	void	*mlx;
 	void	*win;
 	t_map	render;
+	void	*bg;
 	void	*wall;
 	void	*space;
 	void	*item;
@@ -56,6 +64,7 @@ typedef struct	s_game
 	void	*exit;
 	int	w;
 	int	h;
+	int	player_frame;
 }	t_game;
 
 int	ft_count_player(char **map, t_point size);
@@ -77,7 +86,7 @@ void	ft_flood(t_map *params, t_point pos);
 int	ft_check_path(t_map *params);
 int	ft_check_map(t_map *params);
 
-void	ft_init_struct(t_map *params, char **area, t_point size);
+void	ft_init_struct(t_game *game, char **area, t_point size);
 
 void	ft_convert_to_img(t_game *game);
 
@@ -85,5 +94,5 @@ int     on_destroy(t_game *game);
 int on_keypress(int keysym, t_game *game);
 void	ft_render_map(t_game *game);
 
-
+void	ft_player_frame(t_game *game);
 #endif

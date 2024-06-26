@@ -12,7 +12,7 @@
 
 NAME = so_long
 
-SOURCES = map_moves.c map_checks.c get_next_line.c mlx_utils.c so_long.c map_utils.c
+SOURCES = map_moves.c map_checks.c get_next_line.c mlx_utils.c so_long.c map_utils.c render.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
@@ -30,7 +30,7 @@ LIBFT = $(LIBFT_PATH)/libftprintf.a
 
 INCLUDES = -I$(MINILIBX_PATH)
 
-MINILIBX_FLAGS = -lm -lX11 -lXext
+MINILIBX_FLAGS = -lm -lX11 -lXext -Lmlx
 
 all: $(NAME)
 
