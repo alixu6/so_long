@@ -10,36 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
-#include <stdlib.h>
-
-/*void	ft_push_map(t_map **map, int x, int y)
-{
-	t_map	*new_point;
-
-	new_point = (t_map *)malloc(sizeof(t_map));
-	new_point->x = x;
-	new_point->y = y;
-	new_point->next = *map;
-	*map = new_point;
-}
-
-int	ft_pop_map(t_map **map, int *x, int *y)
-{
-	t_map	*temp;
-	
-	if (*map == NULL)
-		return (0);
-	temp = *map;
-	*x = temp->x;
-	*y = temp->y;
-	*map = (*map)->next;
-	free(temp);
-	return (1);
-}*/
 
 void	ft_map_size(const char *filename, t_point *size)
 {
-	int	fd;
+	int		fd;
 	char	*line;
 
 	fd = open(filename, O_RDONLY);
@@ -47,21 +21,23 @@ void	ft_map_size(const char *filename, t_point *size)
 		return ;
 	size->y = 0;
 	size->x = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		if (size->x == 0)
 			size->x = ft_strlen(line);
 		size->y++;
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
-}	
+}
 
 t_point	ft_find_player_pos(char **map, t_point size)
 {
 	t_point	player_pos;
-	int	y;
-	int	x;
+	int		y;
+	int		x;
 
 	y = 0;
 	while (y < size.y)
@@ -83,22 +59,3 @@ t_point	ft_find_player_pos(char **map, t_point size)
 	player_pos.y = -1;
 	return (player_pos);
 }
-
-void	ft_create_window(t_game	*game)
-{
-	game->w = game->render.size.x * CELL_SIZE;
-	game->h = game->render.size.y * CELL_SIZE;
-	ft_printf("game render size x is %d\n", game->render.size.x);
-	ft_printf("game w is %d\n", game->w);
-	ft_printf("game render size y is %d\n", game->render.size.y);
-	ft_printf("game h is %d\n", game->h);
-	game->win = mlx_new_window(game->mlx, game->w, game->h, "GAME");
-        if (!game->win)
-	{
-		free(game->mlx);
-		return ;
-	}
-	ft_render_map(game);
-}
-
-

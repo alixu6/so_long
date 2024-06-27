@@ -1,31 +1,106 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: axu <axu@student.42luxembourg.lu>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/27 19:06:00 by axu               #+#    #+#             */
+/*   Updated: 2024/06/27 19:06:13 by axu              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "so_long.h"
 
-/*void    ft_render_player(t_game *game)
+void    ft_player_frame(t_game *game, int x, int y)
 {
-    // Calculate the position and size of the current frame in the sprite sheet
-    int frame_x = frame_index * CELL_SIZE;   // Adjust based on your animation logic
-    int frame_y = anim_state * CELL_SIZE; // Adjust based on your animation logic
-
-    // Calculate the position to render on screen
-    int render_x = game->render.player.x * CELL_SIZE;   // Adjust as needed
-    int render_y = game->render.player.y * CELL_SIZE;   // Adjust as needed
-
-    // Render the current frame of the player sprite
-    mlx_put_image_to_window(game->mlx, game->win, game->player, frame_x, frame_y, render_x, render_y, CELL_SIZE, CELL_SIZE);
+	int cell_x = x * CELL_SIZE;
+	int cell_y = y * CELL_SIZE;
+	/*static int frame_counter = 0;*/
+	   /*if (keysym == XK_w || keysym == XK_Up || keysym == XK_s || keysym == XK_Down ||
+        keysym == XK_a || keysym == XK_Left || keysym == XK_d || keysym == XK_Right) {*/
+       // if (frame_counter == 10)
+		//{
+			game->player_frame = (game->player_frame + 1) % 7;
+		//	frame_counter = 0;
+		//}
+		mlx_put_image_to_window(game->mlx, game->win, game->player[game->player_frame], cell_x, cell_y);
+		//frame_counter++;
 }
 
-int ft_player_state(t_game *game)
+void ft_render_outline(t_game *game, int x, int y)
 {
-    if ()
-}*/
+	int cell_x = x * CELL_SIZE;
+	int cell_y = y * CELL_SIZE;
+	mlx_put_image_to_window(game->mlx, game->win, game->out, cell_x, cell_y);
+}
 
-void    ft_player_frame(t_game *game)
+void ft_render_wall(t_game *game, int x, int y)
 {
-    game->player_frame++;
+	int cell_x = x * CELL_SIZE;
+	int cell_y = y * CELL_SIZE;
+	mlx_put_image_to_window(game->mlx, game->win, game->wall, cell_x, cell_y);
+}
 
-    if (game->player_frame >= 7)
+void ft_render_space(t_game *game, int x, int y)
+{
+	int cell_x = x * CELL_SIZE;
+	int cell_y = y * CELL_SIZE;
+	mlx_put_image_to_window(game->mlx, game->win, game->space, cell_x, cell_y);
+}
+
+void ft_render_item(t_game *game, int x, int y)
+{
+	int cell_x = x * CELL_SIZE;
+	int cell_y = y * CELL_SIZE;
+	mlx_put_image_to_window(game->mlx, game->win, game->item, cell_x, cell_y);
+}
+
+void ft_render_player(t_game *game, int x, int y)
+{
+	int cell_x = x * CELL_SIZE;
+	int cell_y = y * CELL_SIZE;
+	mlx_put_image_to_window(game->mlx, game->win, game->player, cell_x, cell_y);
+}
+
+void ft_render_exit(t_game *game, int x, int y)
+{
+	int cell_x = x * CELL_SIZE;
+	int cell_y = y * CELL_SIZE;
+	if (game->count == game->render.goal)
+		mlx_put_image_to_window(game->mlx, game->win, game->exit_open, cell_x, cell_y);
+	else
+		mlx_put_image_to_window(game->mlx, game->win, game->exit, cell_x, cell_y);
+}
+
+void ft_render_map(t_game *game)
+{
+	int y;
+	int x;
+
+	mlx_clear_window(game->mlx, game->win);
+    ft_printf("count is %d\n", game->count);
+    y = 0;
+    while (y < game->render.size.y)
     {
-        game->player_frame = 0; // Loop back to the first frame
+        x = 0;
+        while (x < game->render.size.x)
+        {
+            ft_render_space(game, x, y);
+            if (y == 0 || y == game->render.size.y - 1 || x == 0 || x == game->render.size.x - 2)
+                ft_render_outline(game, x, y);
+            else
+			{
+				if (game->render.map[y][x] == '1')
+					ft_render_wall(game, x, y);
+				else if (game->render.map[y][x] == 'C')
+					ft_render_item(game, x, y);
+				else if (game->render.map[y][x] == 'P')
+					ft_player_frame(game, x, y);
+				else if (game->render.map[y][x] == 'E')
+					ft_render_exit(game, x, y);
+			}
+            x++;
+        }
+        y++;
     }
 }

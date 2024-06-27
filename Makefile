@@ -22,7 +22,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 MINILIBX_PATH = ./minilibx-linux
 
-MINILIBX = $(MINILIBX_PATH)/libmlx.a
+MINILIBX = $(MINILIBX_PATH)/libmlx.a $(MINILIBX_PATH)/libmlx_Linux.a
 
 LIBFT_PATH = ./ft_printf
 
@@ -30,7 +30,7 @@ LIBFT = $(LIBFT_PATH)/libftprintf.a
 
 INCLUDES = -I$(MINILIBX_PATH)
 
-MINILIBX_FLAGS = -lm -lX11 -lXext -Lmlx
+MINILIBX_FLAGS = -lX11 -lXext -lm
 
 all: $(NAME)
 

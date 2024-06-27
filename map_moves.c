@@ -13,59 +13,37 @@
 
 char	**ft_read_map(const char *filename, t_point *size)
 {
-	int	fd;
+	int		fd;
 	char	*line;
-	char	**map = NULL;
-	int	row;
-       
+	char	**map;
+	int		row;
+
 	ft_map_size(filename, size);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		return NULL;
+		return (NULL);
 	map = (char **)malloc(sizeof(char *) * (size->y + 1));
 	if (!map)
 		return (NULL);
 	row = 0;
-	while ((line = get_next_line(fd)) != NULL && row < size->y)
+	line = get_next_line(fd);
+	while (line != NULL && row < size->y)
 	{
 		map[row] = line;
+		line = get_next_line(fd);
 		row++;
 	}
 	map[row] = NULL;
 	close(fd);
+	if (line)
+		free(line);
 	return (map);
 }
-
-/*char	**ft_make_map(char **area, t_point size)
-{
-	char	**map;
-	int	i;
-	int	j;
-
-	map = (char **)malloc(sizeof(char *) * size.y);
-	if (!map)
-		return (NULL);
-	i = 0;
-	while (i < size.y)
-	{
-		map[i] = (char *)malloc(sizeof(char) * (size.x + 1));
-		if (!map[i])
-			return (NULL);
-		j = 0;
-		while (j < size.x)
-		{
-			map[i][j] = area[i][j];
-			j++;
-		}
-		map[i][size.x] = '\0';
-		i++;
-	}
-	return (map);
-}*/
 
 void	ft_flood(t_map *params, t_point pos)
 {
 	char	original;
+
 	if (pos.x < 0 || pos.x >= params->size.x)
 		return ;
 	if (pos.y < 0 || pos.y >= params->size.y)
@@ -74,13 +52,9 @@ void	ft_flood(t_map *params, t_point pos)
 	if (original == '1' || original == 'X')
 		return ;
 	if (original == 'C')
-	{
 		params->nb++;
-		//ft_printf("Incremented params->nb at (%d, %d), now %d\n", pos.x, pos.y, params->nb);
-	}
 	else if (original == 'E')
 	{
-		//ft_printf("Reached exit ('E') at (%d, %d)\n", pos.x, pos.y);
 		if (params->nb == params->goal)
 			params->valid = 1;
 		return ;
@@ -90,13 +64,13 @@ void	ft_flood(t_map *params, t_point pos)
 	ft_flood(params, (t_point){pos.x + 1, pos.y});
 	ft_flood(params, (t_point){pos.x, pos.y - 1});
 	ft_flood(params, (t_point){pos.x, pos.y + 1});
-	/*params->map[pos.y][pos.x] = 'x';*/
 }
 
 int	ft_check_path(t_map *params)
 {
 	int	i;
 	int	j;
+
 	i = 0;
 	while (i < params->size.y)
 	{
@@ -109,12 +83,9 @@ int	ft_check_path(t_map *params)
 		}
 		i++;
 	}
-	//ft_printf("params->goal is %d\n", params->goal);
 	if (params->goal < 1)
 		return (0);
 	ft_flood(params, params->player);
-	//ft_printf("params->valid is %d\n", params->valid);
-	//ft_printf("params->nb is %d\n", params->nb);
 	return (params->valid);
 }
 
