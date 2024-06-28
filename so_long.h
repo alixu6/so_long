@@ -75,7 +75,6 @@ typedef struct s_game
 	int		h;
 	int		player_frame;
 	int		move;
-	//t_point	pos;
 }	t_game;
 
 char	*get_next_line(int fd);
@@ -103,22 +102,19 @@ void	ft_convert_to_img(t_game *game);
 void	ft_create_window(t_game *game);
 void	ft_game_loop(t_game *game);
 
-//void	ft_game_moves(t_game *game);
+void	ft_end_game(t_game *game, t_point new_pos);
+void	ft_game_moves(t_game *game, t_point new_pos);
 int		ft_keypress(int keysym, t_game *game);
 
 void	ft_destroy_images(t_game *game);
 int		ft_destroy(t_game *game);
 
-void	ft_render_outline(t_game *game, int x, int y);
-void	ft_render_wall(t_game *game, int x, int y);
 void	ft_render_space(t_game *game, int x, int y);
 void	ft_render_item(t_game *game, int x, int y);
 void	ft_render_player(t_game *game, int x, int y);
 
-void	ft_player_frame(t_game *game, int x, int y);
-
 void	ft_render_exit(t_game *game, int x, int y);
-
-void	ft_render_map(t_game *game);
+void	ft_render_map(t_game *game, int x, int y);
+void	ft_render_loop(t_game *game);
 
 #endif

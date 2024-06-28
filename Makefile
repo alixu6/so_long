@@ -13,7 +13,7 @@
 NAME = so_long
 
 SOURCES = so_long.c get_next_line.c map_utils.c  map_checks.c map_moves.c \
-	  mlx_utils.c keys.c render.c destroy.c \
+	  mlx_utils.c moves.c render.c destroy.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 

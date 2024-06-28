@@ -59,7 +59,7 @@ void	ft_game_loop(t_game *game)
 	}
 	ft_convert_to_img(game);
 	ft_create_window(game);
-	ft_render_map(game);
+	ft_render_loop(game);
 	mlx_hook(game->win, KeyRelease, KeyReleaseMask, &ft_keypress, game);
 	mlx_hook(game->win, DestroyNotify, StructureNotifyMask, &ft_destroy, game);
 	mlx_loop(game->mlx);
