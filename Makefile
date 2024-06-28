@@ -18,43 +18,39 @@ SOURCES = so_long.c get_next_line.c map_utils.c  map_checks.c map_moves.c \
 OBJECTS = $(SOURCES:.c=.o)
 
 CC = cc
-
 CFLAGS = -Wall -Werror -Wextra
+INCLUDES = -I$(MINILIBX_PATH) -I$(LIBFT_PATH)
 
 MINILIBX_PATH = ./minilibx-linux
-
-MINILIBX = $(MINILIBX_PATH)/libmlx.a $(MINILIBX_PATH)/libmlx_Linux.a
+MINILIBX = $(MINILIBX_PATH)/libmlx.a
 
 LIBFT_PATH = ./ft_printf
-
 LIBFT = $(LIBFT_PATH)/libftprintf.a
 
-INCLUDES = -I$(MINILIBX_PATH)
-
-MINILIBX_FLAGS = -lX11 -lXext -lm
+MINILIBX_FLAGS = -L$(MINILIBX_PATH) -lmlx_Linux -lX11 -lXext -lm
 
 all: $(NAME)
 
-$(NAME): $(OBJECTS) $(LIBFT) $(MINILIBX)
+$(NAME): $(LIBFT) $(MINILIBX) $(OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $(OBJECTS) $(LIBFT) $(MINILIBX) $(MINILIBX_FLAGS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(LIBFT):
-	@$(MAKE) -C $(LIBFT_PATH)
+	$(MAKE) -C $(LIBFT_PATH)
 
 $(MINILIBX):
-	@$(MAKE) -C $(MINILIBX_PATH)
+	$(MAKE) -C $(MINILIBX_PATH)
 
 clean:
 	rm -f $(OBJECTS)
-	@$(MAKE) -C $(LIBFT_PATH) clean
-	@$(MAKE) -C $(MINILIBX_PATH) clean
+	$(MAKE) -C $(LIBFT_PATH) clean
+	$(MAKE) -C $(MINILIBX_PATH) clean
 
 fclean: clean
 	rm -f $(NAME)
-	@$(NAME) -C $(LIBFT_PATH) fclean
-	@$(NAME) -C $(MINILIBX_PATH) fclean
+	$(MAKE) -C $(LIBFT_PATH) fclean
+	$(MAKE) -C $(MINILIBX_PATH) clean
 
 re: fclean all

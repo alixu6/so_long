@@ -56,3 +56,20 @@ int	ft_printf(const char *str, ...)
 	va_end(args);
 	return (len);
 }
+
+/*#include <stdio.h>
+int	main(void)
+{
+	int c = 'a';
+	char *str = "hello";
+	int nb = -2147483648;
+	unsigned int d = 4294967295;
+	unsigned long long test = 0;
+	unsigned int x = 565;
+	unsigned int X = 54555;
+
+	ft_printf("%c %s %d %i %u %p %x %X %%\n", 
+	c, str, nb, nb, d, (void *)test, x, X);
+	printf("%c %s %d %i %u %p %x %X %%\n", c, str, nb, nb, d, (void *)test, x, X);
+	return (0);
+}*/

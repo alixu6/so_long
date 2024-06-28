@@ -13,8 +13,15 @@
 
 void	ft_destroy_images(t_game *game)
 {
-	if (game->player)
-		mlx_destroy_image(game->mlx, game->player);
+	int	i;
+
+	i = 0;
+	while (i < 7)
+	{
+		if (game->player[i])
+			mlx_destroy_image(game->mlx, game->player[i]);
+		++i;
+	}
 	if (game->out)
 		mlx_destroy_image(game->mlx, game->out);
 	if (game->wall)

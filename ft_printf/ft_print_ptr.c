@@ -27,7 +27,7 @@ int	ft_len(unsigned long int nb)
 static void	ft_convert_hexa(unsigned long int nb)
 {
 	if (nb >= 16)
-	{
+	{	
 		ft_convert_hexa(nb / 16);
 		ft_convert_hexa(nb % 16);
 	}

@@ -20,7 +20,13 @@ void	ft_convert_to_img(t_game *game)
 	game->wall = mlx_xpm_file_to_image(game->mlx, WALL_IMG, &pix, &pix);
 	game->space = mlx_xpm_file_to_image(game->mlx, SPACE_IMG, &pix, &pix);
 	game->item = mlx_xpm_file_to_image(game->mlx, ITEM_IMG, &pix, &pix);
-	game->player = mlx_xpm_file_to_image(game->mlx, PLAYER_IMG, &pix, &pix);
+	game->player[0] = mlx_xpm_file_to_image(game->mlx, PLAYER_IMG, &pix, &pix);
+	game->player[1] = mlx_xpm_file_to_image(game->mlx, PLAYER_IMG1, &pix, &pix);
+	game->player[2] = mlx_xpm_file_to_image(game->mlx, PLAYER_IMG2, &pix, &pix);
+	game->player[3] = mlx_xpm_file_to_image(game->mlx, PLAYER_IMG3, &pix, &pix);
+	game->player[4] = mlx_xpm_file_to_image(game->mlx, PLAYER_IMG4, &pix, &pix);
+	game->player[5] = mlx_xpm_file_to_image(game->mlx, PLAYER_IMG5, &pix, &pix);
+	game->player[6] = mlx_xpm_file_to_image(game->mlx, PLAYER_IMG6, &pix, &pix);
 	game->exit = mlx_xpm_file_to_image(game->mlx, EXIT_IMG1, &pix, &pix);
 	game->exit_open = mlx_xpm_file_to_image(game->mlx, EXIT_IMG2, &pix, &pix);
 	if (!game->out || !game->wall || !game->space || !game->item

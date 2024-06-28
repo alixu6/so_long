@@ -19,18 +19,19 @@ void	ft_init_struct(t_game *game, char **area, t_point size)
 	game->render.nb = 0;
 	game->render.goal = 0;
 	game->render.valid = 0;
-	//game->mlx = NULL;
-	//game->win = NULL;
+	game->mlx = NULL;
+	game->win = NULL;
 	game->out = NULL;
 	game->wall = NULL;
 	game->space = NULL;
 	game->item = NULL;
-	game->player = NULL;
+	/*game->player = 0;*/
 	game->exit_open = NULL;
 	game->exit = NULL;
 	game->count = 0;
 	game->w = 0;
 	game->h = 0;
+	game->player_frame = 0;
 	game->move = 0;
 }
 

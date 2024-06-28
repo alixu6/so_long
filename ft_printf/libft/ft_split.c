@@ -38,7 +38,7 @@ static char	*ft_strndup(const char *s, size_t len)
 	char	*word;
 	size_t	i;
 
-	word = (char *)malloc(sizeof(char) * (len + 1));
+	word = (char *)malloc(sizeof(char) * len + 1);
 	if (word == NULL)
 		return (NULL);
 	i = 0;
@@ -47,23 +47,19 @@ static char	*ft_strndup(const char *s, size_t len)
 		word[i] = s[i];
 		i++;
 	}
-	word[len] = '\0';
+	word[i] = '\0';
 	return (word);
 }
 
 static void	ft_free(char **arr, size_t len)
 {
-	size_t	i;
-
-	i = 0;
 	if (arr)
 	{
-		while (i < len)
+		while (len > 0)
 		{
-			free(arr[i]);
-			i++;
+			free(arr[--len]);
+			free(arr);
 		}
-		free(arr);
 	}
 }
 

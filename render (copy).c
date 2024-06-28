@@ -15,10 +15,13 @@ void	ft_render_player(t_game *game, int x, int y)
 {
 	int	px;
 	int	py;
+	int	frame;
 
 	px = x * PIXEL;
 	py = y * PIXEL;
-	mlx_put_image_to_window(game->mlx, game->win, game->player, px, py);
+	frame = game->player_frame;
+	frame = (frame + 1) % 7;
+	mlx_put_image_to_window(game->mlx, game->win, game->player[frame], px, py);
 }
 
 void	ft_render_space(t_game *game, int x, int y)
