@@ -13,8 +13,8 @@
 
 void    ft_player_frame(t_game *game, int x, int y)
 {
-	int cell_x = x * CELL_SIZE;
-	int cell_y = y * CELL_SIZE;
+	int PIXEL_x = x * PIXEL;
+	int PIXEL_y = y * PIXEL;
 	/*static int frame_counter = 0;*/
 	   /*if (keysym == XK_w || keysym == XK_Up || keysym == XK_s || keysym == XK_Down ||
         keysym == XK_a || keysym == XK_Left || keysym == XK_d || keysym == XK_Right) {*/
@@ -23,53 +23,53 @@ void    ft_player_frame(t_game *game, int x, int y)
 			game->player_frame = (game->player_frame + 1) % 7;
 		//	frame_counter = 0;
 		//}
-		mlx_put_image_to_window(game->mlx, game->win, game->player[game->player_frame], cell_x, cell_y);
+		mlx_put_image_to_window(game->mlx, game->win, game->player[game->player_frame], PIXEL_x, PIXEL_y);
 		//frame_counter++;
 }
 
 void ft_render_outline(t_game *game, int x, int y)
 {
-	int cell_x = x * CELL_SIZE;
-	int cell_y = y * CELL_SIZE;
-	mlx_put_image_to_window(game->mlx, game->win, game->out, cell_x, cell_y);
+	int PIXEL_x = x * PIXEL;
+	int PIXEL_y = y * PIXEL;
+	mlx_put_image_to_window(game->mlx, game->win, game->out, PIXEL_x, PIXEL_y);
 }
 
 void ft_render_wall(t_game *game, int x, int y)
 {
-	int cell_x = x * CELL_SIZE;
-	int cell_y = y * CELL_SIZE;
-	mlx_put_image_to_window(game->mlx, game->win, game->wall, cell_x, cell_y);
+	int PIXEL_x = x * PIXEL;
+	int PIXEL_y = y * PIXEL;
+	mlx_put_image_to_window(game->mlx, game->win, game->wall, PIXEL_x, PIXEL_y);
 }
 
 void ft_render_space(t_game *game, int x, int y)
 {
-	int cell_x = x * CELL_SIZE;
-	int cell_y = y * CELL_SIZE;
-	mlx_put_image_to_window(game->mlx, game->win, game->space, cell_x, cell_y);
+	int PIXEL_x = x * PIXEL;
+	int PIXEL_y = y * PIXEL;
+	mlx_put_image_to_window(game->mlx, game->win, game->space, PIXEL_x, PIXEL_y);
 }
 
 void ft_render_item(t_game *game, int x, int y)
 {
-	int cell_x = x * CELL_SIZE;
-	int cell_y = y * CELL_SIZE;
-	mlx_put_image_to_window(game->mlx, game->win, game->item, cell_x, cell_y);
+	int PIXEL_x = x * PIXEL;
+	int PIXEL_y = y * PIXEL;
+	mlx_put_image_to_window(game->mlx, game->win, game->item, PIXEL_x, PIXEL_y);
 }
 
 void ft_render_player(t_game *game, int x, int y)
 {
-	int cell_x = x * CELL_SIZE;
-	int cell_y = y * CELL_SIZE;
-	mlx_put_image_to_window(game->mlx, game->win, game->player, cell_x, cell_y);
+	int PIXEL_x = x * PIXEL;
+	int PIXEL_y = y * PIXEL;
+	mlx_put_image_to_window(game->mlx, game->win, game->player, PIXEL_x, PIXEL_y);
 }
 
 void ft_render_exit(t_game *game, int x, int y)
 {
-	int cell_x = x * CELL_SIZE;
-	int cell_y = y * CELL_SIZE;
+	int PIXEL_x = x * PIXEL;
+	int PIXEL_y = y * PIXEL;
 	if (game->count == game->render.goal)
-		mlx_put_image_to_window(game->mlx, game->win, game->exit_open, cell_x, cell_y);
+		mlx_put_image_to_window(game->mlx, game->win, game->exit_open, PIXEL_x, PIXEL_y);
 	else
-		mlx_put_image_to_window(game->mlx, game->win, game->exit, cell_x, cell_y);
+		mlx_put_image_to_window(game->mlx, game->win, game->exit, PIXEL_x, PIXEL_y);
 }
 
 void ft_render_map(t_game *game)

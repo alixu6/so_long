@@ -14,8 +14,8 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
 # endif
-# ifndef CELL_SIZE
-#  define CELL_SIZE 32
+# ifndef PIXEL
+#  define PIXEL 32
 # endif
 
 # include <unistd.h>
@@ -77,43 +77,45 @@ typedef struct s_game
 	int		move;
 }	t_game;
 
-int		ft_count_player(char **map, t_point size);
-int		ft_count_exit(char **map, t_point size);
-int		ft_rectangular(char **map, t_point size);
-int		ft_row_walls(char **map, t_point size);
-int		ft_column_walls(char **map, t_point size);
-
 char	*get_next_line(int fd);
 
+void	ft_free_map(char **map);
 void	ft_map_size(const char *filename, t_point *size);
+void	ft_map_lines(char **map, int fd, int size_y);
 char	**ft_read_map(const char *filename, t_point *size);
-
 t_point	ft_find_player_pos(char **map, t_point size);
 
-void	ft_create_window(t_game *game);
+void	ft_init_struct(t_game *game, char **area, t_point size);
+void	ft_cannot_read_map(void);
+
+int		ft_count_player(t_map *params);
+int		ft_count_exit(t_map *params);
+int		ft_rectangular(t_map *params);
+int		ft_row_walls(t_map *params);
+int		ft_column_walls(t_map *params);
 
 void	ft_flood(t_map *params, t_point pos);
 int		ft_check_path(t_map *params);
 int		ft_check_map(t_map *params);
 
-void	ft_init_struct(t_game *game, char **area, t_point size);
-
 void	ft_convert_to_img(t_game *game);
+int		ft_keypress(int keysym, t_game *game);
+void	ft_create_window(t_game *game);
+void	ft_game_loop(t_game *game);
 
-int     on_destroy(t_game *game);
-int		on_keypress(int keysym, t_game *game);
+void	ft_destroy_images(t_game *game);
+int		ft_destroy(t_game *game);
 
 void	ft_render_outline(t_game *game, int x, int y);
 void	ft_render_wall(t_game *game, int x, int y);
 void	ft_render_space(t_game *game, int x, int y);
 void	ft_render_item(t_game *game, int x, int y);
 void	ft_render_player(t_game *game, int x, int y);
-void	ft_render_exit(t_game *game, int x, int y);
-
-void	ft_render_map(t_game *game);
 
 void	ft_player_frame(t_game *game, int x, int y);
 
-void	print_map(char **map, int size_x, int size_y);
+void	ft_render_exit(t_game *game, int x, int y);
+
+void	ft_render_map(t_game *game);
 
 #endif

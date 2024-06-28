@@ -6,13 +6,14 @@
 #    By: axu <axu@student.42luxembourg.lu>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/19 13:24:10 by axu               #+#    #+#              #
-#    Updated: 2024/06/21 17:19:52 by axu              ###   ########.fr        #
+#    Updated: 2024/06/28 10:29:31 by axu              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = so_long
 
-SOURCES = map_moves.c map_checks.c get_next_line.c mlx_utils.c so_long.c map_utils.c render.c
+SOURCES = so_long.c get_next_line.c map_utils.c  map_checks.c map_moves.c \
+	  mlx_utils.c destroy.c render.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 

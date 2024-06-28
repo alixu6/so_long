@@ -13,14 +13,9 @@
 
 void	ft_init_struct(t_game *game, char **area, t_point size)
 {
-	t_point player_pos;
-
 	game->render.map = area;
 	game->render.size = size;
-	player_pos = ft_find_player_pos(area, size);
-        if (player_pos.x == -1 && player_pos.y == -1)
-                return ;
-	game->render.player = player_pos;
+	game->render.player = ft_find_player_pos(area, size);
 	game->render.nb = 0;
 	game->render.goal = 0;
 	game->render.valid = 0;
@@ -40,17 +35,10 @@ void	ft_init_struct(t_game *game, char **area, t_point size)
 	game->move = 0;
 }
 
-void	ft_free_map(char **map)
+void	ft_cannot_read_map(void)
 {
-	int	i;
-
-	i = 0;
-	while (map[i])
-	{
-		free(map[i]);
-		i++;
-	}
-	free(map);
+	ft_printf("Error\nCannot read map\n");
+	exit(0);
 }
 
 void print_map(char **map, int size_x, int size_y)
@@ -65,6 +53,7 @@ void print_map(char **map, int size_x, int size_y)
     }
 }
 
+
 int	main(int argc, char *argv[])
 {
 	t_game	game;
@@ -72,39 +61,29 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 	{
 		ft_printf("Error\nExpected input: ./so_long <map_file>\n");
-		return (0);
+		exit(0);
 	}
 	game.render.map = ft_read_map(argv[1], &game.render.size);
+	print_map(game.render.map, game.render.size.x, game.render.size.y);
 	if (!game.render.map)
-	{
-		ft_printf("Error\nCannot read map\n");
-		return (0);
-	}
-	/*print_map(game.render.map, game.render.size.x, game.render.size.y);*/
+		ft_cannot_read_map();
 	ft_init_struct(&game, game.render.map, game.render.size);
+	/*if (ft_check_map(&game.render))
+	{
+		ft_check_path(&game.render);
+		//print_map(game.render.map, game.render.size.x, game.render.size.y);
+	}*/
 	if (!ft_check_map(&game.render) || !ft_check_path(&game.render))
 	{
-		printf("Error\nInvalid map\n");
+		ft_printf("Error\nInvalid map\n");
 		ft_free_map(game.render.map);
-		exit(EXIT_FAILURE);
+		exit(0);
 	}
+	ft_free_map(game.render.map);
 	game.render.map = ft_read_map(argv[1], &game.render.size);
 	if (!game.render.map)
-	{
-		ft_printf("Error\nCannot read map\n");
-		return (0);
-	}
-	game.mlx = mlx_init();
-	if (!game.mlx)
-	{
-		ft_free_map(game.render.map);
-		return (0);
-	}
-	ft_convert_to_img(&game);
-	ft_create_window(&game);
-	mlx_hook(game.win, KeyRelease, KeyReleaseMask, &on_keypress, &game);
-	mlx_hook(game.win, DestroyNotify, StructureNotifyMask, &on_destroy, &game);
-	mlx_loop(game.mlx);
+		ft_cannot_read_map();
+	ft_game_loop(&game);
 	ft_free_map(game.render.map);
 	return (0);
 }

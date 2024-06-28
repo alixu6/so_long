@@ -11,35 +11,6 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
-char	**ft_read_map(const char *filename, t_point *size)
-{
-	int		fd;
-	char	*line;
-	char	**map;
-	int		row;
-
-	ft_map_size(filename, size);
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	map = (char **)malloc(sizeof(char *) * (size->y + 1));
-	if (!map)
-		return (NULL);
-	row = 0;
-	line = get_next_line(fd);
-	while (line != NULL && row < size->y)
-	{
-		map[row] = line;
-		line = get_next_line(fd);
-		row++;
-	}
-	map[row] = NULL;
-	close(fd);
-	if (line)
-		free(line);
-	return (map);
-}
-
 void	ft_flood(t_map *params, t_point pos)
 {
 	char	original;
@@ -91,29 +62,25 @@ int	ft_check_path(t_map *params)
 
 int	ft_check_map(t_map *params)
 {
-	if (!ft_count_player(params->map, params->size))
+	if (!ft_count_player(params))
 	{
-		printf("wrong number of players\n");
+		ft_printf("Error\nWrong number of players\n");
 		return (0);
 	}
-	if (!ft_count_exit(params->map, params->size))
+	if (!ft_count_exit(params))
 	{
-		printf("wrong number of exits\n");
+		ft_printf("Error\nWrong number of exits\n");
 		return (0);
 	}
-	if (!ft_rectangular(params->map, params->size))
+	if (!ft_rectangular(params))
 	{
-		printf("map is not rectangular\n");
+		ft_printf("Error\nMap is not rectangular\n");
 		return (0);
 	}
-	if (!ft_row_walls(params->map, params->size))
+	if (!ft_row_walls(params)
+		|| !ft_column_walls(params))
 	{
-		printf("map not surrounding by walls 1\n");
-		return (0);
-	}
-	if (!ft_column_walls(params->map, params->size))
-	{
-		printf("map not surrouding by walls 2\n");
+		ft_printf("Error\nMap not surrounding by walls\n");
 		return (0);
 	}
 	return (1);

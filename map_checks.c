@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
-int	ft_count_player(char **map, t_point size)
+int	ft_count_player(t_map *params)
 {
 	int	count_p;
 	int	i;
@@ -19,12 +19,12 @@ int	ft_count_player(char **map, t_point size)
 
 	count_p = 0;
 	i = 0;
-	while (i < size.y)
+	while (i < params->size.y)
 	{
 		j = 0;
-		while (j < size.x)
+		while (j < params->size.x)
 		{
-			if (map[i][j] == 'P')
+			if (params->map[i][j] == 'P')
 				count_p++;
 			j++;
 		}
@@ -36,7 +36,7 @@ int	ft_count_player(char **map, t_point size)
 		return (0);
 }
 
-int	ft_count_exit(char **map, t_point size)
+int	ft_count_exit(t_map *params)
 {
 	int	count_e;
 	int	i;
@@ -44,12 +44,12 @@ int	ft_count_exit(char **map, t_point size)
 
 	count_e = 0;
 	i = 0;
-	while (i < size.y)
+	while (i < params->size.y)
 	{
 		j = 0;
-		while (j < size.x)
+		while (j < params->size.x)
 		{
-			if (map[i][j] == 'E')
+			if (params->map[i][j] == 'E')
 				count_e++;
 			j++;
 		}
@@ -61,20 +61,18 @@ int	ft_count_exit(char **map, t_point size)
 		return (0);
 }
 
-int	ft_rectangular(char **map, t_point size)
+int	ft_rectangular(t_map *params)
 {
 	int	i;
 	int	j;
 	int	row_length;
 
-	if (size.y <= 0)
-		return (0);
 	i = 0;
-	row_length = size.x;
-	while (i < size.y)
+	row_length = params->size.x;
+	while (i < params->size.y)
 	{
 		j = 0;
-		while (map[i][j] != '\0')
+		while (params->map[i][j] != '\0')
 			j++;
 		if (j != row_length)
 			return (0);
@@ -83,48 +81,48 @@ int	ft_rectangular(char **map, t_point size)
 	return (1);
 }
 
-int	ft_row_walls(char **map, t_point size)
+int	ft_row_walls(t_map *params)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (j < size.x - 1)
+	while (j < params->size.x - 1)
 	{
-		if (map[i][j] != '1')
+		if (params->map[i][j] != '1')
 			return (0);
 		j++;
 	}
-	i = size.y - 1;
+	i = params->size.y - 1;
 	j = 0;
-	while (j < size.x - 1)
+	while (j < params->size.x - 1)
 	{
-		if (map[i][j] != '1')
+		if (params->map[i][j] != '1')
 			return (0);
 		j++;
 	}
 	return (1);
 }
 
-int	ft_column_walls(char **map, t_point size)
+int	ft_column_walls(t_map *params)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (i < size.y)
+	while (i < params->size.y)
 	{
-		if (map[i][j] != '1')
+		if (params->map[i][j] != '1')
 			return (0);
 		i++;
 	}
 	i = 0;
-	j = size.x - 2;
-	while (i < size.y)
+	j = params->size.x - 2;
+	while (i < params->size.y)
 	{
-		if (map[i][j] != '1')
+		if (params->map[i][j] != '1')
 			return (0);
 		i++;
 	}
