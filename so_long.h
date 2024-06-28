@@ -39,8 +39,8 @@
 # define PLAYER_IMG4 "./textures/player4.xpm"
 # define PLAYER_IMG5 "./textures/player5.xpm"
 # define PLAYER_IMG6 "./textures/player6.xpm"
-# define EXIT_START_IMG "./textures/exit_closed.xpm"
-# define EXIT_END_IMG "./textures/exit_open.xpm"
+# define EXIT_IMG1 "./textures/exit_closed.xpm"
+# define EXIT_IMG2 "./textures/exit_open.xpm"
 
 typedef struct s_point
 {
@@ -75,6 +75,7 @@ typedef struct s_game
 	int		h;
 	int		player_frame;
 	int		move;
+	//t_point	pos;
 }	t_game;
 
 char	*get_next_line(int fd);
@@ -99,9 +100,11 @@ int		ft_check_path(t_map *params);
 int		ft_check_map(t_map *params);
 
 void	ft_convert_to_img(t_game *game);
-int		ft_keypress(int keysym, t_game *game);
 void	ft_create_window(t_game *game);
 void	ft_game_loop(t_game *game);
+
+//void	ft_game_moves(t_game *game);
+int		ft_keypress(int keysym, t_game *game);
 
 void	ft_destroy_images(t_game *game);
 int		ft_destroy(t_game *game);

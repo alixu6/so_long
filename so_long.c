@@ -41,19 +41,6 @@ void	ft_cannot_read_map(void)
 	exit(0);
 }
 
-void print_map(char **map, int size_x, int size_y)
-{
-    for (int y = 0; y < size_y; y++)
-    {
-        for (int x = 0; x < size_x; x++)
-        {
-            printf("%c ", map[y][x]); // Print each character of the map
-        }
-        printf("\n"); // New line after each row
-    }
-}
-
-
 int	main(int argc, char *argv[])
 {
 	t_game	game;
@@ -64,15 +51,9 @@ int	main(int argc, char *argv[])
 		exit(0);
 	}
 	game.render.map = ft_read_map(argv[1], &game.render.size);
-	print_map(game.render.map, game.render.size.x, game.render.size.y);
 	if (!game.render.map)
 		ft_cannot_read_map();
 	ft_init_struct(&game, game.render.map, game.render.size);
-	/*if (ft_check_map(&game.render))
-	{
-		ft_check_path(&game.render);
-		//print_map(game.render.map, game.render.size.x, game.render.size.y);
-	}*/
 	if (!ft_check_map(&game.render) || !ft_check_path(&game.render))
 	{
 		ft_printf("Error\nInvalid map\n");
