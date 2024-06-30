@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
+#include "so_long_bonus.h"
 
 void	ft_free_map(char **map)
 {

@@ -9,7 +9,46 @@
 /*   Updated: 2024/06/25 17:10:26 by axu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "so_long.h"
+#include "so_long_bonus.h"
+
+int		ft_valid_char(char c)
+{
+	if (c == '0')
+		return (1);
+	if (c == '1')
+		return (1);
+	if (c == 'P')
+		return (1);
+	if (c == 'C')
+		return (1);
+	if (c == 'E')
+		return (1);
+	if (c == 'F')
+		return (1);
+	if (c == '\n' || c == '\0')
+		return (1);
+	else
+		return (0);
+}
+int		ft_check_char(t_map *params)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < params->size.y)
+	{
+		j = 0;
+		while (j < params->size.x)
+		{
+			if (!(ft_valid_char(params->map[i][j])))
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
 
 void	ft_flood(t_map *params, t_point pos)
 {
@@ -20,7 +59,7 @@ void	ft_flood(t_map *params, t_point pos)
 	if (pos.y < 0 || pos.y >= params->size.y)
 		return ;
 	original = params->map[pos.y][pos.x];
-	if (original == '1' || original == 'X')
+	if (original == '1' || original == 'X' || original == 'F')
 		return ;
 	if (original == 'C')
 		params->nb++;
@@ -43,6 +82,8 @@ int	ft_check_path(t_map *params)
 	int	j;
 
 	i = 0;
+	if (!ft_check_char(params))
+		return (0);
 	while (i < params->size.y)
 	{
 		j = 0;

@@ -9,18 +9,17 @@
 /*   Updated: 2024/06/28 17:15:42 by axu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	ft_render_player(t_game *game, int x, int y)
 {
 	int	px;
 	int	py;
-	int	frame;
+	int frame;
 
 	px = x * PIXEL;
 	py = y * PIXEL;
 	frame = game->player_frame;
-	frame = (frame + 1) % 7;
 	mlx_put_image_to_window(game->mlx, game->win, game->player[frame], px, py);
 }
 
@@ -67,6 +66,8 @@ void	ft_render_map(t_game *game, int x, int y)
 			ft_render_player(game, x, y);
 		else if (game->render.map[y][x] == 'E')
 			ft_render_exit(game, x, y);
+		else if (game->render.map[y][x] == 'F')
+			ft_render_enemy(game, x, y);
 	}
 }
 
@@ -75,7 +76,6 @@ void	ft_render_loop(t_game *game)
 	int	y;
 	int	x;
 
-	mlx_clear_window(game->mlx, game->win);
 	y = 0;
 	while (y < game->render.size.y)
 	{

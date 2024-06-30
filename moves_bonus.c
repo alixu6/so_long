@@ -9,23 +9,28 @@
 /*   Updated: 2024/06/28 17:25:24 by axu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	ft_end_game(t_game *game, t_point new_pos)
 {
-	game->render.map[game->render.player.y][game->render.player.x] = '0';
-	game->render.player = new_pos;
-	game->render.map[new_pos.y][new_pos.x] = 'P';
-	ft_render_loop(game);
-	ft_printf("Congrats! You collected all items!\n");
-	ft_destroy(game);
-	exit(0);
+	if (game->count == game->render.goal)
+	{
+		game->render.map[game->render.player.y][game->render.player.x] = '0';
+		game->render.player = new_pos;
+		game->render.map[new_pos.y][new_pos.x] = 'P';
+		ft_render_loop(game);
+		ft_printf("Congrats! You collected all items!\n");
+		ft_destroy(game);
+		exit(0);
+	}
+	else
+		return ;
 }
 
 void	ft_game_moves(t_game *game, t_point new_pos)
 {
-	if (new_pos.x >= 0 && new_pos.x < game->render.size.x
-		&& new_pos.y >= 0 && new_pos.y < game->render.size.y
+	if (new_pos.x >= 0 && new_pos.x < game->render.size.x 
+		&& new_pos.y >= 0 && new_pos.y < game->render.size.y 
 		&& game->render.map[new_pos.y][new_pos.x] != '1')
 	{
 		game->move++;
@@ -36,15 +41,13 @@ void	ft_game_moves(t_game *game, t_point new_pos)
 			game->render.map[new_pos.y][new_pos.x] = '0';
 		}
 		else if (game->render.map[new_pos.y][new_pos.x] == 'E')
-		{
-			if (game->count == game->render.goal)
-				ft_end_game(game, new_pos);
-			else
-				return ;
-		}
+			ft_end_game(game, new_pos);
+		else if (game->render.map[new_pos.y][new_pos.x] == 'F')
+			ft_enemy_case(game, new_pos);
 		game->render.map[game->render.player.y][game->render.player.x] = '0';
 		game->render.player = new_pos;
 		game->render.map[new_pos.y][new_pos.x] = 'P';
+		game->player_frame = (game->player_frame + 1) % 7;
 		ft_render_loop(game);
 	}
 }

@@ -51,10 +51,12 @@ void	ft_game_loop(t_game *game)
 		ft_free_map(game->render.map);
 		exit(0);
 	}
+	
 	ft_convert_to_img(game);
 	ft_create_window(game);
+	mlx_clear_window(game->mlx, game->win);
 	ft_render_loop(game);
-	mlx_hook(game->win, KeyRelease, KeyReleaseMask, &ft_keypress, game);
+	mlx_hook(game->win, KeyRelease, KeyReleaseMask, &ft_keys, game);
 	mlx_hook(game->win, DestroyNotify, StructureNotifyMask, &ft_destroy, game);
 	mlx_loop(game->mlx);
 }

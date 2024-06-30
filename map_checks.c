@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
+#include "so_long_bonus.h"
 
 int	ft_count_player(t_map *params)
 {
