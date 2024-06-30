@@ -72,7 +72,6 @@ void	ft_render_loop(t_game *game)
 	int	y;
 	int	x;
 
-	mlx_clear_window(game->mlx, game->win);
 	y = 0;
 	while (y < game->render.size.y)
 	{
