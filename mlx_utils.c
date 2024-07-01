@@ -51,7 +51,6 @@ void	ft_game_loop(t_game *game)
 		ft_free_map(game->render.map);
 		exit(0);
 	}
-	
 	ft_convert_to_img(game);
 	ft_create_window(game);
 	mlx_clear_window(game->mlx, game->win);

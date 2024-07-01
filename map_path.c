@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "so_long.h"
 
-int		ft_valid_char(char c)
+int	ft_valid_char(char c)
 {
 	if (c == '0')
 		return (1);
@@ -28,7 +28,8 @@ int		ft_valid_char(char c)
 	else
 		return (0);
 }
-int		ft_check_char(t_map *params)
+
+int	ft_check_char(t_map *params)
 {
 	int	i;
 	int	j;
@@ -97,7 +98,7 @@ int	ft_check_path(t_map *params)
 		return (0);
 	ft_flood(params, params->player);
 	if (params->nb == params->goal)
-			params->valid = 1;
+		params->valid = 1;
 	return (params->valid);
 }
 

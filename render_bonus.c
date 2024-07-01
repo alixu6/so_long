@@ -15,7 +15,7 @@ void	ft_render_player(t_game *game, int x, int y)
 {
 	int	px;
 	int	py;
-	int frame;
+	int	frame;
 
 	px = x * PIXEL;
 	py = y * PIXEL;

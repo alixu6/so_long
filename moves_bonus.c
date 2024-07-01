@@ -45,7 +45,6 @@ void	ft_game_moves(t_game *game, t_point new_pos)
 	game->render.map[new_pos.y][new_pos.x] = 'P';
 	game->player_frame = (game->player_frame + 1) % 7;
 	ft_render_loop(game);
-	
 }
 
 int	ft_keys(int keysym, t_game *game)
@@ -65,9 +64,9 @@ int	ft_keys(int keysym, t_game *game)
 		new_pos.x++;
 	else
 		return (0);
-	if (new_pos.x >= 0 && new_pos.x < game->render.size.x 
-		&& new_pos.y >= 0 && new_pos.y < game->render.size.y 
+	if (new_pos.x >= 0 && new_pos.x < game->render.size.x
+		&& new_pos.y >= 0 && new_pos.y < game->render.size.y
 		&& game->render.map[new_pos.y][new_pos.x] != '1')
-			ft_game_moves(game, new_pos);
+		ft_game_moves(game, new_pos);
 	return (0);
 }

@@ -107,6 +107,7 @@ int		ft_row_walls(t_map *params);
 int		ft_column_walls(t_map *params);
 int		ft_valid_char(char c);
 int		ft_check_char(t_map *params);
+
 void	ft_flood(t_map *params, t_point pos);
 int		ft_check_path(t_map *params);
 int		ft_check_map(t_map *params);
@@ -121,6 +122,8 @@ void	ft_end_game(t_game *game, t_point new_pos);
 void	ft_game_moves(t_game *game, t_point new_pos);
 int		ft_keys(int keysym, t_game *game);
 
+void	ft_destroy_enemy(t_game *game);
+void	ft_destroy_player(t_game *game);
 void	ft_destroy_images(t_game *game);
 int		ft_destroy(t_game *game);
 

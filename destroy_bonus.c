@@ -11,22 +11,32 @@
 /* ************************************************************************** */
 #include "so_long_bonus.h"
 
-void	ft_destroy_images(t_game *game)
+void	ft_destroy_enemy(t_game *game)
 {
 	int	i;
-	
-	i = 0;
-	while (i < 7)
-	{
-		mlx_destroy_image(game->mlx, game->player[i]);
-		i++;
-	}
+
 	i = 0;
 	while (i < 7)
 	{
 		mlx_destroy_image(game->mlx, game->enemy[i]);
 		i++;
 	}
+}
+
+void	ft_destroy_player(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < 7)
+	{
+		mlx_destroy_image(game->mlx, game->player[i]);
+		i++;
+	}
+}
+
+void	ft_destroy_images(t_game *game)
+{
 	if (game->out)
 		mlx_destroy_image(game->mlx, game->out);
 	if (game->wall)

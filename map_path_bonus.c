@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "so_long_bonus.h"
 
-int		ft_valid_char(char c)
+int	ft_valid_char(char c)
 {
 	if (c == '0')
 		return (1);
@@ -30,7 +30,8 @@ int		ft_valid_char(char c)
 	else
 		return (0);
 }
-int		ft_check_char(t_map *params)
+
+int	ft_check_char(t_map *params)
 {
 	int	i;
 	int	j;

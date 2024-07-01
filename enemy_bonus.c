@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   enemy_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: axu <axu@student.42luxembourg.lu>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/01 14:12:29 by axu               #+#    #+#             */
+/*   Updated: 2024/07/01 14:14:48 by axu              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "so_long_bonus.h"
 
 void	ft_enemy_case(t_game *game, t_point new_pos)
@@ -12,23 +22,23 @@ void	ft_enemy_case(t_game *game, t_point new_pos)
 	exit(0);
 }
 
-int     ft_enemy_loop(t_game *game)
+int	ft_enemy_loop(t_game *game)
 {
-    game->enemy_counter++;
-    if (game->enemy_counter >= 15)
-    {
-        game->enemy_frame = (game->enemy_frame + 1) % 7;
-        game->enemy_counter = 0;
-    }
-    ft_render_loop(game);
-    return (0);
+	game->enemy_counter++;
+	if (game->enemy_counter >= 15)
+	{
+		game->enemy_frame = (game->enemy_frame + 1) % 7;
+		game->enemy_counter = 0;
+	}
+	ft_render_loop(game);
+	return (0);
 }
 
-void    ft_render_enemy(t_game *game, int x, int y)
+void	ft_render_enemy(t_game *game, int x, int y)
 {
-    int	px;
+	int	px;
 	int	py;
-	int frame;
+	int	frame;
 
 	px = x * PIXEL;
 	py = y * PIXEL;

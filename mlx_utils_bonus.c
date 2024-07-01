@@ -24,7 +24,8 @@ void	ft_enemy_img(t_game *game)
 	game->enemy[5] = mlx_xpm_file_to_image(game->mlx, ENEMY5, &pix, &pix);
 	game->enemy[6] = mlx_xpm_file_to_image(game->mlx, ENEMY6, &pix, &pix);
 	if (!game->enemy[0] || !game->enemy[1] || !game->enemy[2]
-		|| !game->enemy[3] || !game->player[4] || !game->enemy[5] || !game->enemy[6])
+		|| !game->enemy[3] || !game->player[4]
+		|| !game->enemy[5] || !game->enemy[6])
 	{
 		ft_printf("Error\nError loading images");
 		exit (0);
@@ -44,7 +45,8 @@ void	ft_player_img(t_game *game)
 	game->player[5] = mlx_xpm_file_to_image(game->mlx, PLAYER5, &pix, &pix);
 	game->player[6] = mlx_xpm_file_to_image(game->mlx, PLAYER6, &pix, &pix);
 	if (!game->player[0] || !game->player[1] || !game->player[2]
-		|| !game->player[3] || !game->player[4] || !game->player[5] || !game->player[6])
+		|| !game->player[3] || !game->player[4]
+		|| !game->player[5] || !game->player[6])
 	{
 		ft_printf("Error\nError loading images");
 		exit (0);
