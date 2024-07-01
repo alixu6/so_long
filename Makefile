@@ -32,7 +32,7 @@ MINILIBX = $(MINILIBX_PATH)/libmlx.a
 LIBFT_PATH = ./ft_printf
 LIBFT = $(LIBFT_PATH)/libftprintf.a
 
-MINILIBX_FLAGS = -L$(MINILIBX_PATH) -lmlx_Linux -lX11 -lXext -lm -L/usr/lib/x86_64-linux-gnu
+MINILIBX_FLAGS = -L$(MINILIBX_PATH) -lmlx -L/usr/lib/X11 -lX11 -lXext -lm
 
 all: $(NAME)
 
@@ -40,13 +40,13 @@ $(NAME): $(LIBFT) $(MINILIBX) $(OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $(OBJECTS) $(LIBFT) $(MINILIBX) $(MINILIBX_FLAGS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-$(LIBFT):
-	$(MAKE) -C $(LIBFT_PATH)
+	$(CC) $(CFLAGS) -c -o $@ $< $(INCLUDES)
 
 $(MINILIBX):
 	$(MAKE) -C $(MINILIBX_PATH)
+
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_PATH)
 
 clean:
 	rm -f $(OBJECTS) $(BONUS_OBJECTS)

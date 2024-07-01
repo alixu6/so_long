@@ -15,7 +15,7 @@ void	ft_enemy_case(t_game *game, t_point new_pos)
 int     ft_enemy_loop(t_game *game)
 {
     game->enemy_counter++;
-    if (game->enemy_counter >= 7)
+    if (game->enemy_counter >= 15)
     {
         game->enemy_frame = (game->enemy_frame + 1) % 7;
         game->enemy_counter = 0;

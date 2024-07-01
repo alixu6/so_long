@@ -9,32 +9,24 @@
 /*   Updated: 2024/06/28 17:30:41 by axu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 void	ft_destroy_images(t_game *game)
 {
-	game->player_frame = 0;
-	while (game->player_frame < 7)
+	int	i;
+	
+	i = 0;
+	while (i < 7)
 	{
-		if (game->player[game->player_frame])
-			mlx_destroy_image(game->mlx, game->player[game->player_frame]);
-		game->player_frame++;
+		mlx_destroy_image(game->mlx, game->player[i]);
+		i++;
 	}
-	/*int i;
-
-    for (i = 0; i < 7; i++) {
-        if (game->enemy[i] != NULL) {
-            mlx_destroy_image(game->mlx, game->enemy[i]);
-            game->enemy[i] = NULL; // Reset pointer to avoid dangling pointer issues
-        }
-    }
-
-    for (i = 0; i < 7; i++) {
-        if (game->player[i] != NULL) {
-            mlx_destroy_image(game->mlx, game->player[i]);
-            game->player[i] = NULL; // Reset pointer to avoid dangling pointer issues
-		}
-	}*/
+	i = 0;
+	while (i < 7)
+	{
+		mlx_destroy_image(game->mlx, game->enemy[i]);
+		i++;
+	}
 	if (game->out)
 		mlx_destroy_image(game->mlx, game->out);
 	if (game->wall)

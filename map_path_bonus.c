@@ -100,7 +100,6 @@ int	ft_check_path(t_map *params)
 	ft_flood(params, params->player);
 	if (params->nb == params->goal)
 		params->valid = 1;
-	print_map(params);
 	return (params->valid);
 }
 

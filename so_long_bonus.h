@@ -74,9 +74,9 @@ typedef struct s_game
 	void	*wall;
 	void	*space;
 	void	*item;
-	void	*player[7];
 	void	*exit;
 	void	*exit_open;
+	void	*player[7];
 	void	*enemy[7];
 	int		count;
 	int		w;
