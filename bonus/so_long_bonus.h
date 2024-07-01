@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: axu <axu@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: axu <axu@student.42luxembourg.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 09:51:18 by axu               #+#    #+#             */
-/*   Updated: 2024/06/27 19:46:33 by axu              ###   ########.fr       */
+/*   Updated: 2024/07/01 19:09:12 by axu              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef SO_LONG_H
-# define SO_LONG_H
+
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
 # endif
@@ -95,7 +96,7 @@ void	ft_map_lines(char **map, int fd, int size_y);
 char	**ft_read_map(const char *filename, t_point *size);
 t_point	ft_find_player_pos(char **map, t_point size);
 void	ft_init_enemy(t_game *game);
-void	ft_init_player(t_game * game);
+void	ft_init_player(t_game *game);
 void	ft_init_struct(t_game *game, char **area, t_point size);
 void	ft_cannot_read_map(void);
 int		ft_count_player(t_map *params);
