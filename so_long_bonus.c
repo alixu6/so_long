@@ -80,11 +80,15 @@ int	main(int argc, char *argv[])
 	if (!game.render.map)
 		ft_cannot_read_map();
 	ft_init_struct(&game, game.render.map, game.render.size);
-	if (!ft_check_map(&game.render) || !ft_check_path(&game.render))
+	if (ft_check_map(&game.render)) //|| !ft_check_path(&game.render))
 	{
-		ft_printf("Error\nInvalid map\n");
-		ft_free_map(game.render.map);
-		exit(0);
+		ft_printf("entering check path\n");
+		if (!ft_check_path(&game.render))
+		{
+			ft_printf("Error\nInvalid map\n");
+			ft_free_map(game.render.map);
+			exit(0);
+		}
 	}
 	ft_free_map(game.render.map);
 	game.render.map = ft_read_map(argv[1], &game.render.size);

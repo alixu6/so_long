@@ -61,14 +61,14 @@ void	ft_flood(t_map *params, t_point pos)
 	original = params->map[pos.y][pos.x];
 	if (original == '1' || original == 'X' || original == 'F')
 		return ;
-	if (original == 'C')
-		params->nb++;
-	else if (original == 'E')
+	if (original == 'E')
 	{
 		if (params->nb == params->goal)
 			params->valid = 1;
 		return ;
 	}
+	else if (original == 'C')
+		params->nb++;
 	params->map[pos.y][pos.x] = 'X';
 	ft_flood(params, (t_point){pos.x - 1, pos.y});
 	ft_flood(params, (t_point){pos.x + 1, pos.y});
@@ -98,6 +98,9 @@ int	ft_check_path(t_map *params)
 	if (params->goal < 1)
 		return (0);
 	ft_flood(params, params->player);
+	if (params->nb == params->goal)
+		params->valid = 1;
+	print_map(params);
 	return (params->valid);
 }
 

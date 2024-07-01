@@ -32,7 +32,7 @@ MINILIBX = $(MINILIBX_PATH)/libmlx.a
 LIBFT_PATH = ./ft_printf
 LIBFT = $(LIBFT_PATH)/libftprintf.a
 
-MINILIBX_FLAGS = -L$(MINILIBX_PATH) -lmlx_Linux -lX11 -lXext -lm
+MINILIBX_FLAGS = -L$(MINILIBX_PATH) -lmlx_Linux -lX11 -lXext -lm -L/usr/lib/x86_64-linux-gnu
 
 all: $(NAME)
 
