@@ -54,7 +54,7 @@ void	ft_render_map(t_game *game, int x, int y)
 	px = x * PIXEL;
 	py = y * PIXEL;
 	if (y == 0 || y == game->render.size.y - 1
-		|| x == 0 || x == game->render.size.x - 1)
+		|| x == 0 || x == game->render.size.x - 2)
 		mlx_put_image_to_window(game->mlx, game->win, game->out, px, py);
 	else
 	{

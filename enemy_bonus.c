@@ -16,6 +16,8 @@ void	ft_enemy_case(t_game *game, t_point new_pos)
 	game->render.map[game->render.player.y][game->render.player.x] = '0';
 	game->render.player = new_pos;
 	game->render.map[new_pos.y][new_pos.x] = 'P';
+	game->move++;
+	ft_printf("Number of moves: %d\n", game->move);
 	ft_render_loop(game);
 	ft_printf("Oops, you are dead\n");
 	ft_destroy(game);

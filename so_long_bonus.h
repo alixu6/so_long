@@ -94,12 +94,10 @@ void	ft_map_size(const char *filename, t_point *size);
 void	ft_map_lines(char **map, int fd, int size_y);
 char	**ft_read_map(const char *filename, t_point *size);
 t_point	ft_find_player_pos(char **map, t_point size);
-
 void	ft_init_enemy(t_game *game);
 void	ft_init_player(t_game * game);
 void	ft_init_struct(t_game *game, char **area, t_point size);
 void	ft_cannot_read_map(void);
-
 int		ft_count_player(t_map *params);
 int		ft_count_exit(t_map *params);
 int		ft_rectangular(t_map *params);
@@ -107,34 +105,27 @@ int		ft_row_walls(t_map *params);
 int		ft_column_walls(t_map *params);
 int		ft_valid_char(char c);
 int		ft_check_char(t_map *params);
-
 void	ft_flood(t_map *params, t_point pos);
 int		ft_check_path(t_map *params);
 int		ft_check_map(t_map *params);
-
 void	ft_enemy_img(t_game *game);
 void	ft_player_img(t_game *game);
 void	ft_convert_to_img(t_game *game);
 void	ft_create_window(t_game *game);
 void	ft_game_loop(t_game *game);
-
 void	ft_end_game(t_game *game, t_point new_pos);
 void	ft_game_moves(t_game *game, t_point new_pos);
 int		ft_keys(int keysym, t_game *game);
-
 void	ft_destroy_enemy(t_game *game);
 void	ft_destroy_player(t_game *game);
 void	ft_destroy_images(t_game *game);
 int		ft_destroy(t_game *game);
-
 void	ft_render_space(t_game *game, int x, int y);
 void	ft_render_item(t_game *game, int x, int y);
 void	ft_render_player(t_game *game, int x, int y);
-
 void	ft_render_exit(t_game *game, int x, int y);
 void	ft_render_map(t_game *game, int x, int y);
 void	ft_render_loop(t_game *game);
-
 void	ft_enemy_case(t_game *game, t_point new_pos);
 int		ft_enemy_loop(t_game *game);
 void	ft_render_enemy(t_game *game, int x, int y);

@@ -37,6 +37,8 @@ void	ft_destroy_player(t_game *game)
 
 void	ft_destroy_images(t_game *game)
 {
+	ft_destroy_player(game);
+	ft_destroy_enemy(game);
 	if (game->out)
 		mlx_destroy_image(game->mlx, game->out);
 	if (game->wall)

@@ -16,6 +16,8 @@ void	ft_end_game(t_game *game, t_point new_pos)
 	game->render.map[game->render.player.y][game->render.player.x] = '0';
 	game->render.player = new_pos;
 	game->render.map[new_pos.y][new_pos.x] = 'P';
+	game->move++;
+	ft_printf("Number of moves: %d\n", game->move);
 	ft_render_loop(game);
 	ft_printf("Congrats! You collected all items!\n");
 	ft_destroy(game);
@@ -24,12 +26,12 @@ void	ft_end_game(t_game *game, t_point new_pos)
 
 void	ft_game_moves(t_game *game, t_point new_pos)
 {
-	game->move++;
-	ft_printf("Number of moves: %d\n", game->move);
 	if (game->render.map[new_pos.y][new_pos.x] == 'C')
 	{
 		game->count++;
 		game->render.map[new_pos.y][new_pos.x] = '0';
+		game->move++;
+		ft_printf("Number of moves: %d\n", game->move);
 	}
 	else if (game->render.map[new_pos.y][new_pos.x] == 'E')
 	{
@@ -44,6 +46,8 @@ void	ft_game_moves(t_game *game, t_point new_pos)
 	game->render.player = new_pos;
 	game->render.map[new_pos.y][new_pos.x] = 'P';
 	game->player_frame = (game->player_frame + 1) % 7;
+	game->move++;
+	ft_printf("Number of moves: %d\n", game->move);
 	ft_render_loop(game);
 }
 
