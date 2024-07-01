@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy.c                                          :+:      :+:    :+:   */
+/*   destroy_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: axu <axu@student.42luxembourg.lu>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,15 +13,13 @@
 
 void	ft_destroy_images(t_game *game)
 {
-	/*int	i;
-
-	i = 0;
-	while (i < 7)
+	game->player_frame = 0;
+	while (game->player_frame < 7)
 	{
-		if (game->player[i])
-			mlx_destroy_image(game->mlx, game->player[i]);
-		i++;
-	}*/
+		if (game->player[game->player_frame])
+			mlx_destroy_image(game->mlx, game->player[game->player_frame]);
+		game->player_frame++;
+	}
 	/*int i;
 
     for (i = 0; i < 7; i++) {
