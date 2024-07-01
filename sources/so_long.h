@@ -25,8 +25,8 @@
 # include <string.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
-# include "minilibx-linux/mlx.h"
-# include "ft_printf/libftprintf.h"
+# include "../minilibx-linux/mlx.h"
+# include "../ft_printf/libftprintf.h"
 
 # define OUT_IMG "./textures/wall1.xpm"
 # define WALL_IMG "./textures/wall.xpm"

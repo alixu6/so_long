@@ -88,4 +88,5 @@ void	ft_render_loop(t_game *game)
 		}
 		y++;
 	}
+	ft_render_moves(game);
 }

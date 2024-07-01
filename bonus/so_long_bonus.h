@@ -25,8 +25,8 @@
 # include <string.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
-# include "minilibx-linux/mlx.h"
-# include "ft_printf/libftprintf.h"
+# include "../minilibx-linux/mlx.h"
+# include "../ft_printf/libftprintf.h"
 
 # define OUT_IMG "./textures/wall1.xpm"
 # define WALL_IMG "./textures/wall.xpm"
@@ -113,6 +113,7 @@ void	ft_player_img(t_game *game);
 void	ft_convert_to_img(t_game *game);
 void	ft_create_window(t_game *game);
 void	ft_game_loop(t_game *game);
+void	ft_render_moves(t_game *game);
 void	ft_end_game(t_game *game, t_point new_pos);
 void	ft_game_moves(t_game *game, t_point new_pos);
 int		ft_keys(int keysym, t_game *game);

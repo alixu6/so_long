@@ -1,1 +1,0 @@
-cc -L./minilibx-linux -lmlx_Linux -lX11 -lXext -lm so_long.c get_next_line.c map_utils.c  map_checks.c map_moves.c mlx_utils.c moves.c render.c destroy.c -o so_lon ./minilibx-linux/libmlx.a ./ft_printf/libftprintf.a

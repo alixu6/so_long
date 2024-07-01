@@ -11,6 +11,22 @@
 /* ************************************************************************** */
 #include "so_long_bonus.h"
 
+void	ft_render_moves(t_game *game)
+{
+	char	*move;
+	int		x;
+	int		y;
+	int		len;
+
+	move = ft_itoa(game->move);
+	len = 60 + (10 * ft_strlen(move));
+	x = (game->w - len) / 2;
+	y = game->h / 2;
+	mlx_string_put(game->mlx, game->win, x, y, 0x604031, "MOVES: ");
+	mlx_string_put(game->mlx, game->win, x + 50, y, 0x604031, move);
+	free(move);
+}
+
 void	ft_end_game(t_game *game, t_point new_pos)
 {
 	game->render.map[game->render.player.y][game->render.player.x] = '0';

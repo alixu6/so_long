@@ -12,11 +12,11 @@
 
 NAME = so_long
 
-SOURCES = so_long.c get_next_line.c map_utils.c  map_checks.c map_path.c \
-	  mlx_utils.c moves.c render.c destroy.c \
+SOURCES = ./sources/so_long.c get_next_line.c ./sources/map_utils.c  ./sources/map_checks.c ./sources/map_path.c \
+	  ./sources/mlx_utils.c ./sources/moves.c ./sources/render.c ./sources/destroy.c \
 
-BONUS_SOURCES = so_long_bonus.c get_next_line.c map_utils.c  map_checks.c map_path_bonus.c \
-	  mlx_utils_bonus.c moves_bonus.c render_bonus.c enemy_bonus.c destroy_bonus.c \
+BONUS_SOURCES = ./bonus/so_long_bonus.c get_next_line.c ./bonus/map_utils_bonus.c  ./bonus/map_checks_bonus.c ./bonus/map_path_bonus.c \
+	  ./bonus/mlx_utils_bonus.c ./bonus/moves_bonus.c ./bonus/render_bonus.c ./bonus/enemy_bonus.c ./bonus/destroy_bonus.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 
@@ -39,6 +39,9 @@ all: $(NAME)
 $(NAME): $(LIBFT) $(MINILIBX) $(OBJECTS)
 	$(CC) $(CFLAGS) -o $@ $(OBJECTS) $(LIBFT) $(MINILIBX) $(MINILIBX_FLAGS)
 
+bonus: $(LIBFT) $(MINILIBX) $(BONUS_OBJECTS)
+	$(CC) $(CFLAGS) -o $(NAME) $(BONUS_OBJECTS) $(LIBFT) $(MINILIBX) $(MINILIBX_FLAGS)
+
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $< $(INCLUDES)
 
@@ -59,6 +62,3 @@ fclean: clean
 	$(MAKE) -C $(MINILIBX_PATH) clean
 
 re: fclean all
-
-bonus: $(LIBFT) $(MINILIBX) $(BONUS_OBJECTS)
-	$(CC) $(CFLAGS) -o $(NAME) $(BONUS_OBJECTS) $(LIBFT) $(MINILIBX) $(MINILIBX_FLAGS)
