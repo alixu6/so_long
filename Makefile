@@ -12,10 +12,10 @@
 
 NAME = so_long
 
-SOURCES = ./sources/so_long.c get_next_line.c ./sources/map_utils.c  ./sources/map_checks.c ./sources/map_path.c \
+SOURCES = ./sources/so_long.c ./sources/get_next_line.c ./sources/map_utils.c  ./sources/map_checks.c ./sources/map_path.c \
 	  ./sources/mlx_utils.c ./sources/moves.c ./sources/render.c ./sources/destroy.c \
 
-BONUS_SOURCES = ./bonus/so_long_bonus.c get_next_line.c ./bonus/map_utils_bonus.c  ./bonus/map_checks_bonus.c ./bonus/map_path_bonus.c \
+BONUS_SOURCES = ./bonus/so_long_bonus.c ./bonus/get_next_line.c ./bonus/map_utils_bonus.c  ./bonus/map_checks_bonus.c ./bonus/map_path_bonus.c \
 	  ./bonus/mlx_utils_bonus.c ./bonus/moves_bonus.c ./bonus/render_bonus.c ./bonus/enemy_bonus.c ./bonus/destroy_bonus.c \
 
 OBJECTS = $(SOURCES:.c=.o)
